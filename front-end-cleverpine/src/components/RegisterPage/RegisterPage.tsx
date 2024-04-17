@@ -7,10 +7,9 @@ import {
   InputGroup,
   InputRightElement,
   Button,
-  Checkbox,
   Text,
-  Stack,
   Box,
+  Flex,
 } from "@chakra-ui/react";
 
 const LoginPage = () => {
@@ -28,9 +27,18 @@ const LoginPage = () => {
         flexDirection="column"
         gap="1.5rem"
       >
-        <Text fontSize="3xl" textAlign="center">
-          Sign in to your account to continue
-        </Text>
+        <Flex flexDirection="column">
+          <Text fontSize="3xl" textAlign="center">
+            Get started
+          </Text>
+          <Text textAlign="center">
+            Start creating the best possible user experience for your customers
+          </Text>
+        </Flex>
+        <FormControl>
+          <FormLabel>First Name</FormLabel>
+          <Input type="text" placeholder="Enter first name" />
+        </FormControl>
         <FormControl>
           <FormLabel>Email address</FormLabel>
           <Input type="email" placeholder="Enter email" />
@@ -51,17 +59,24 @@ const LoginPage = () => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Checkbox defaultChecked>
-          Remember me
-        </Checkbox>
-        <Stack direction="column" spacing={4} align="center">
-          <Button colorScheme="messenger" width="100%">
-            Sign in
-          </Button>
-          <Button colorScheme="messenger" width="100%" variant="outline">
-            Forgot password
-          </Button>
-        </Stack>
+        <FormControl>
+          <FormLabel>Confirm Password</FormLabel>
+          <InputGroup size="md">
+            <Input
+              pr="4.5rem"
+              type={show ? "text" : "password"}
+              placeholder="Enter confirmation password"
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? "Hide" : "Show"}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </FormControl>
+        <Button colorScheme="messenger" width="100%">
+          Sign up
+        </Button>
       </Box>
     </>
   );
