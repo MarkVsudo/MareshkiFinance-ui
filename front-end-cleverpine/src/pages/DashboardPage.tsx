@@ -1,5 +1,5 @@
 'use client'
-import '../../styles/profile.css'
+import '../styles/profile.css'
 import {
   IconButton,
   Avatar,
@@ -18,7 +18,6 @@ import {
   FlexProps,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
@@ -32,6 +31,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { GrTransaction } from "react-icons/gr";
 import { VscSignIn } from "react-icons/vsc";
 import { IconType } from 'react-icons'
+import DashboardProfile from '../components/DashboardPage/DashboardProfile';
 
 interface LinkItemProps {
   name: string
@@ -53,8 +53,8 @@ interface SidebarProps extends BoxProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome },
-  { name: 'Transactions', icon:  GrTransaction},
   { name: 'Profile', icon: AiOutlineUser  },
+  { name: 'Transactions', icon:  GrTransaction},
   { name: 'Settings', icon: FiSettings },
 ]
 
@@ -209,6 +209,7 @@ const SidebarWithHeader = () => {
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {/* Content */}
+        <DashboardProfile></DashboardProfile>
       </Box>
     </Box>
   )

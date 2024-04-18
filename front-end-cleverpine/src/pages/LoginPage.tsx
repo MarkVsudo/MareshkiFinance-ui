@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/auth.css";
+import "../styles/auth.css";
 import {
   FormControl,
   FormLabel,
@@ -7,10 +7,12 @@ import {
   InputGroup,
   InputRightElement,
   Button,
-  Text,
+  Checkbox,
+  Stack,
   Box,
-  Flex,
 } from "@chakra-ui/react";
+import { AuthTitle } from "../components/AuthPages/AuthTitle";
+import { BigButton } from "../components/AuthPages/BigButton";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
@@ -27,18 +29,11 @@ const LoginPage = () => {
         flexDirection="column"
         gap="1.5rem"
       >
-        <Flex flexDirection="column">
-          <Text fontSize="3xl" textAlign="center">
-            Get started
-          </Text>
-          <Text textAlign="center">
-            Start creating the best possible user experience for your customers
-          </Text>
-        </Flex>
-        <FormControl>
-          <FormLabel>First Name</FormLabel>
-          <Input type="text" placeholder="Enter first name" />
-        </FormControl>
+        <AuthTitle
+          text="Sign in to your account to continue
+"
+        />
+
         <FormControl>
           <FormLabel>Email address</FormLabel>
           <Input type="email" placeholder="Enter email" />
@@ -59,24 +54,11 @@ const LoginPage = () => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <FormControl>
-          <FormLabel>Confirm Password</FormLabel>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Enter confirmation password"
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <Button colorScheme="messenger" width="100%">
-          Sign up
-        </Button>
+        <Checkbox defaultChecked>Remember me</Checkbox>
+        <Stack direction="column" spacing={4} align="center">
+          <BigButton onHandleSubmit={()=>console.log('Sign in')} title="Sign in" bgcolor="messenger" variant="solid"></BigButton>
+          <BigButton onHandleSubmit={()=>console.log('Forgot password')} title="Forgot password" bgcolor="messenger" variant="outline"></BigButton>
+        </Stack>
       </Box>
     </>
   );
