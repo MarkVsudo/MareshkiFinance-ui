@@ -17,6 +17,7 @@ export const BigButton = ({
     <Button
       colorScheme={bgcolor}
       width="100%"
+      type='submit'
       onClick={onHandleSubmit}
       variant={variant}
     >
