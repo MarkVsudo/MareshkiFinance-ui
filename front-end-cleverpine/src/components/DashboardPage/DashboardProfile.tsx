@@ -12,14 +12,13 @@ import {
 const DashboardProfile = () => {
   return (
     <>
-      <Card w='lg'>
+      <Card w="lg">
         <CardHeader>
           <Heading size="md">User Information</Heading>
         </CardHeader>
 
         <CardBody>
-          <Stack divider={<StackDivider />} spacing="4">
-          </Stack>
+          <Stack divider={<StackDivider />} spacing="4"></Stack>
           <Box>
             <Stack spacing={4}>
               <Input placeholder="Username" />
@@ -27,7 +26,7 @@ const DashboardProfile = () => {
               <Input placeholder="Email" />
               <Input placeholder="Country" />
               <Input placeholder="City" />
-              <Input type="file" accept="image/*" pt='.25rem' />
+              <Input type="file" accept="image/*" pt=".25rem" />
             </Stack>
           </Box>
         </CardBody>
