@@ -10,22 +10,29 @@ import {
   Checkbox,
   Stack,
   Box,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { AuthTitle } from "../components/AuthPages/AuthTitle";
 import { BigButton } from "../components/AuthPages/BigButton";
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form";
+import StatusMessage from "../components/AuthPages/StatusMessage";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
   interface IFormInput {
-    email: string
-    password: string
+    email: string;
+    password: string;
   }
-  
-  const { register, handleSubmit } = useForm<IFormInput>()
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
   return (
     <>
@@ -43,16 +50,22 @@ const LoginPage = () => {
 "
         />
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl>
+          <FormControl mb="1.5rem" mt=".5rem">
             <FormLabel>Email address</FormLabel>
-            <Input {...register("email")} type="email" placeholder="Enter email" />
+            <Input
+              {...register("email", { required: true })}
+              type="email"
+              placeholder="Enter email"
+              aria-invalid={errors.email ? "true" : "false"}
+            />
           </FormControl>
 
-          <FormControl>
+          <FormControl my="1.5rem">
             <FormLabel>Password</FormLabel>
             <InputGroup size="md">
               <Input
-              {...register("password")}
+                {...register("password", { required: true })}
+                aria-invalid={errors.password ? "true" : "false"}
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
@@ -63,8 +76,30 @@ const LoginPage = () => {
                 </Button>
               </InputRightElement>
             </InputGroup>
+            {errors.password && !errors.email && (
+              <StatusMessage
+                text="                Please enter a password
+
+                    "
+              />
+            )}
+            {errors.email && !errors.password && (
+              <StatusMessage
+                text="                Please enter an email
+
+                    "
+              />
+            )}
+            {errors.password && errors.email && (
+              <StatusMessage
+                text="Please enter a password and an email
+              "
+              />
+            )}
           </FormControl>
-          <Checkbox defaultChecked>Remember me</Checkbox>
+          <Checkbox defaultChecked mb="1.5rem">
+            Remember me
+          </Checkbox>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
               onHandleSubmit={() => console.log("Sign in")}
