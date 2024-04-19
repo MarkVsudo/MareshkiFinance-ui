@@ -13,10 +13,30 @@ import {
 } from "@chakra-ui/react";
 import { AuthTitle } from "../components/AuthPages/AuthTitle";
 import { BigButton } from "../components/AuthPages/BigButton";
+import { SubmitHandler, useForm } from "react-hook-form";
+import StatusMessage from "../components/AuthPages/StatusMessage";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  interface IFormInput {
+    firstName: string;
+    email: string;
+    password: string;
+    confirmationPassword: string;
+  }
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+
+  const password = watch("password");
+  const confirmationPassword = watch("confirmationPassword");
 
   return (
     <>
@@ -38,51 +58,84 @@ const LoginPage = () => {
             Start creating the best possible user experience for your customers
           </Text>
         </Flex>
-        <FormControl>
-          <FormLabel>First Name</FormLabel>
-          <Input type="text" placeholder="Enter first name" />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" placeholder="Enter email" />
-        </FormControl>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl mb="1.5rem" mt=".5rem">
+            <FormLabel>First Name</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter first name"
+              {...register("firstName", { required: true })}
+              aria-invalid={errors.firstName ? "true" : "false"}
+            />
+          </FormControl>
+          <FormControl my="1.5rem">
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="email"
+              placeholder="Enter email"
+              {...register("email", { required: true })}
+              aria-invalid={errors.email ? "true" : "false"}
+            />
+          </FormControl>
 
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Enter password"
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Confirm Password</FormLabel>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Enter confirmation password"
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Hide" : "Show"}
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormControl>
-        <BigButton
-          onHandleSubmit={() => console.log("Sign up")}
-          title="Sign up"
-          bgcolor="messenger"
-          variant="solid"
-        ></BigButton>
+          <FormControl my="1.5rem">
+            <FormLabel>Password</FormLabel>
+            <InputGroup size="md">
+              <Input
+                pr="4.5rem"
+                type={show ? "text" : "password"}
+                placeholder="Enter password"
+                {...register("password", { required: true })}
+                aria-invalid={errors.password ? "true" : "false"}
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+          </FormControl>
+          <FormControl mb="1.5rem">
+            <FormLabel>Confirm Password</FormLabel>
+            <InputGroup size="md">
+              <Input
+                pr="4.5rem"
+                type={show ? "text" : "password"}
+                placeholder="Enter confirmation password"
+                {...register("confirmationPassword", { required: true })}
+                aria-invalid={errors.confirmationPassword ? "true" : "false"}
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            {password !== confirmationPassword && (
+              <StatusMessage
+                text="Passwords must match
+
+                    "
+              />
+            )}
+            {(errors.firstName ||
+              errors.email ||
+              errors.password ||
+              errors.confirmationPassword) && (
+              <StatusMessage
+                text="Please, enter your credentials
+
+                    "
+              />
+            )}
+          </FormControl>
+          <BigButton
+            onHandleSubmit={() => console.log("Sign up")}
+            title="Sign up"
+            bgcolor="messenger"
+            variant="solid"
+          ></BigButton>
+        </form>
       </Box>
     </>
   );

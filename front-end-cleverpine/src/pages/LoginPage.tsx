@@ -76,24 +76,11 @@ const LoginPage = () => {
                 </Button>
               </InputRightElement>
             </InputGroup>
-            {errors.password && !errors.email && (
+            {(errors.email || errors.password) && (
               <StatusMessage
-                text="                Please enter a password
+                text="                Please, enter your credentials
 
                     "
-              />
-            )}
-            {errors.email && !errors.password && (
-              <StatusMessage
-                text="                Please enter an email
-
-                    "
-              />
-            )}
-            {errors.password && errors.email && (
-              <StatusMessage
-                text="Please enter a password and an email
-              "
               />
             )}
           </FormControl>
