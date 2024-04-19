@@ -56,8 +56,18 @@ const LoginPage = () => {
         </FormControl>
         <Checkbox defaultChecked>Remember me</Checkbox>
         <Stack direction="column" spacing={4} align="center">
-          <BigButton onHandleSubmit={()=>console.log('Sign in')} title="Sign in" bgcolor="messenger" variant="solid"></BigButton>
-          <BigButton onHandleSubmit={()=>console.log('Forgot password')} title="Forgot password" bgcolor="messenger" variant="outline"></BigButton>
+          <BigButton
+            onHandleSubmit={() => console.log("Sign in")}
+            title="Sign in"
+            bgcolor="messenger"
+            variant="solid"
+          ></BigButton>
+          <BigButton
+            onHandleSubmit={() => console.log("Forgot password")}
+            title="Forgot password"
+            bgcolor="messenger"
+            variant="outline"
+          ></BigButton>
         </Stack>
       </Box>
     </>

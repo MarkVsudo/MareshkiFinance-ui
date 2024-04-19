@@ -22,7 +22,6 @@ import {
   MenuList,
 } from '@chakra-ui/react'
 import {
-  FiHome,
   FiSettings,
   FiMenu,
   FiChevronDown,
@@ -32,7 +31,9 @@ import { GrTransaction } from "react-icons/gr";
 import { VscSignIn } from "react-icons/vsc";
 import { IconType } from 'react-icons'
 import DashboardProfile from '../components/DashboardPage/DashboardProfile';
-
+import DashboardTransactions from '../components/DashboardPage/DashboardTransactions';
+import DashboardSettings from '../components/DashboardPage/DashboardSettings';
+import { useState } from 'react';
 interface LinkItemProps {
   name: string
   icon: IconType
@@ -52,13 +53,12 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
   { name: 'Profile', icon: AiOutlineUser  },
   { name: 'Transactions', icon:  GrTransaction},
   { name: 'Settings', icon: FiSettings },
 ]
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, handleNavItemClick, ...rest }: SidebarProps & {handleNavItemClick: (itemName: string) => void}) => {
   return (
     <Box
       transition="3s ease"
@@ -77,7 +77,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} onClick={() => handleNavItemClick(link.name)}>
           {link.name}
         </NavItem>
       ))}
@@ -158,7 +158,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVrLgzSMdH62yI75gb9jx3MTTR0o0VLDntTteWqR6rPQ&s'
                   }
                 />
                 <VStack
@@ -166,9 +166,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">Mr. Mareshki</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    User
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -189,11 +189,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 }
 
 const SidebarWithHeader = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedNavItem, setSelectedNavItem] = useState('Home');
+
+  const handleNavItemClick = (itemName: string) => {
+    setSelectedNavItem(itemName);
+  };
 
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
+      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} handleNavItemClick={handleNavItemClick}/>
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -202,15 +207,17 @@ const SidebarWithHeader = () => {
         onOverlayClick={onClose}
         size="full">
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent onClose={onClose} handleNavItemClick={handleNavItemClick}/>
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {/* Content */}
-        <DashboardProfile></DashboardProfile>
-      </Box>
+        {selectedNavItem === 'Profile' && <DashboardProfile />}
+        {selectedNavItem === 'Transactions' && <DashboardTransactions/>}
+        {selectedNavItem === 'Settings' && <DashboardSettings />}      
+        </Box>
     </Box>
   )
 }

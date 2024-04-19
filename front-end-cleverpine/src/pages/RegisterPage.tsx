@@ -31,9 +31,9 @@ const LoginPage = () => {
       >
         <Flex flexDirection="column">
           <AuthTitle
-          text="Get started
+            text="Get started
 "
-        />
+          />
           <Text textAlign="center">
             Start creating the best possible user experience for your customers
           </Text>
@@ -77,7 +77,12 @@ const LoginPage = () => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <BigButton onHandleSubmit={()=>console.log('Sign up')} title="Sign up" bgcolor="messenger" variant="solid"></BigButton>
+        <BigButton
+          onHandleSubmit={() => console.log("Sign up")}
+          title="Sign up"
+          bgcolor="messenger"
+          variant="solid"
+        ></BigButton>
       </Box>
     </>
   );
