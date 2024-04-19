@@ -250,9 +250,6 @@ const SidebarWithHeader = () => {
       <Box
         ml={{ base: 0, md: 60 }}
         p="4"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
       >
         {/* Content */}
         {selectedNavItem === "Profile" && <DashboardProfile />}
