@@ -12,7 +12,6 @@ import {
 const DashboardProfile = () => {
   return (
     <>
-    
       <Card w='lg'>
         <CardHeader>
           <Heading size="md">User Information</Heading>
@@ -25,7 +24,6 @@ const DashboardProfile = () => {
             <Stack spacing={4}>
               <Input placeholder="Username" />
               <Input placeholder="First name" />
-              <Input placeholder="Last name" />
               <Input placeholder="Email" />
               <Input placeholder="Country" />
               <Input placeholder="City" />
