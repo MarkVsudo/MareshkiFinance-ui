@@ -190,7 +190,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
 const SidebarWithHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedNavItem, setSelectedNavItem] = useState('Home');
+  const [selectedNavItem, setSelectedNavItem] = useState('Profile');
 
   const handleNavItemClick = (itemName: string) => {
     setSelectedNavItem(itemName);
@@ -212,7 +212,7 @@ const SidebarWithHeader = () => {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4" display='flex' alignItems='center' justifyContent='center'>
         {/* Content */}
         {selectedNavItem === 'Profile' && <DashboardProfile />}
         {selectedNavItem === 'Transactions' && <DashboardTransactions/>}

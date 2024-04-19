@@ -10,8 +10,6 @@ import {
   Checkbox,
   Stack,
   Box,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 import { AuthTitle } from "../components/AuthPages/AuthTitle";
 import { BigButton } from "../components/AuthPages/BigButton";

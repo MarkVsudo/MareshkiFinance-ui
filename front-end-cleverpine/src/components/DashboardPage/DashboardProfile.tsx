@@ -1,11 +1,39 @@
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Input,
+  Stack,
+  StackDivider,
+} from "@chakra-ui/react";
 
 const DashboardProfile = () => {
   return (
     <>
-      <Box>
-        <Text fontSize="xl">Profile Section</Text>
-      </Box>
+    
+      <Card w='lg'>
+        <CardHeader>
+          <Heading size="md">User Information</Heading>
+        </CardHeader>
+
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing="4">
+          </Stack>
+          <Box>
+            <Stack spacing={4}>
+              <Input placeholder="Username" />
+              <Input placeholder="First name" />
+              <Input placeholder="Last name" />
+              <Input placeholder="Email" />
+              <Input placeholder="Country" />
+              <Input placeholder="City" />
+              <Input type="file" accept="image/*" pt='.25rem' />
+            </Stack>
+          </Box>
+        </CardBody>
+      </Card>
     </>
   );
 };
