@@ -2,6 +2,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Flex,
   Heading,
   Table,
   TableCaption,
@@ -15,7 +16,7 @@ import {
 
 const DashboardTransactions = () => {
   return (
-    <>
+    <Flex  justifyContent='center' alignItems='center'>
       <Card w="max-content">
         <CardHeader>
           <Heading size="md">Transactions history</Heading>
@@ -65,7 +66,7 @@ const DashboardTransactions = () => {
     </TableContainer>
         </CardBody>
       </Card>
-    </>
+    </Flex>
   );
 };
 

@@ -1,8 +1,13 @@
+import { Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const TransferReceiver = () => {
   return (
-    <div>TransferReceiver</div>
+    <>
+    <Flex flexDirection='column'>
+      <Text>Select an account from which you will make the transaction:</Text>
+    </Flex>
+    </>
   )
 }
 

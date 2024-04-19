@@ -3,6 +3,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Flex,
   Heading,
   Input,
   Stack,
@@ -11,8 +12,8 @@ import {
 
 const DashboardProfile = () => {
   return (
-    <>
-      <Card w="lg">
+    <Flex justifyContent='center' alignItems='center'>
+      <Card w="xl">
         <CardHeader>
           <Heading size="md">User Information</Heading>
         </CardHeader>
@@ -31,7 +32,7 @@ const DashboardProfile = () => {
           </Box>
         </CardBody>
       </Card>
-    </>
+    </Flex>
   );
 };
 

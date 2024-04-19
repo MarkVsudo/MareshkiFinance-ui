@@ -15,7 +15,7 @@ const TransferSender = () => {
       <Flex flexDirection="column">
         <form>
           <Flex gap='2rem'>
-            <Flex flexDirection="column" gap='1rem'>
+            <Flex flexDirection="column" gap='1rem' w='lg'>
               <Input
                 placeholder="Select Date and Time"
                 size="md"
@@ -26,7 +26,7 @@ const TransferSender = () => {
               <Input placeholder="BIC" />
               <Input placeholder="Bank of receiver" />
             </Flex>
-            <Flex flexDirection="column" gap='1rem'>
+            <Flex flexDirection="column" gap='1rem' w='lg'>
               <NumberInput defaultValue={10} precision={2} min={10} step={0.2}>
                 <NumberInputField />
                 <NumberInputStepper>
