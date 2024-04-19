@@ -21,14 +21,14 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FiSettings, FiMenu, FiChevronDown } from "react-icons/fi";
-import { AiOutlineUser } from "react-icons/ai";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
+import { AiOutlineUser, AiOutlineHistory  } from "react-icons/ai";
 import { GrTransaction } from "react-icons/gr";
 import { VscSignIn } from "react-icons/vsc";
 import { IconType } from "react-icons";
 import DashboardProfile from "../components/DashboardPage/DashboardProfile";
-import DashboardTransactions from "../components/DashboardPage/DashboardTransactions";
-import DashboardSettings from "../components/DashboardPage/DashboardSettings";
+import DashboardTransactions from "../components/DashboardPage/DashboardHistory";
+import DashboardSettings from "../components/DashboardPage/DashboardTransfer";
 import { useState } from "react";
 interface LinkItemProps {
   name: string;
@@ -50,8 +50,8 @@ interface SidebarProps extends BoxProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Profile", icon: AiOutlineUser },
-  { name: "Transactions", icon: GrTransaction },
-  { name: "Settings", icon: FiSettings },
+  { name: "Transfer", icon: GrTransaction },
+  { name: "History", icon: AiOutlineHistory },
 ];
 
 const SidebarContent = ({
@@ -256,8 +256,8 @@ const SidebarWithHeader = () => {
       >
         {/* Content */}
         {selectedNavItem === "Profile" && <DashboardProfile />}
-        {selectedNavItem === "Transactions" && <DashboardTransactions />}
-        {selectedNavItem === "Settings" && <DashboardSettings />}
+        {selectedNavItem === "Transfer" && <DashboardSettings />}
+        {selectedNavItem === "History" && <DashboardTransactions />}
       </Box>
     </Box>
   );
