@@ -5,7 +5,7 @@ interface StatusMessageProps {
   status?: 'info' | 'warning' | 'success' | 'error' | 'loading';
 }
 
-const ErrorMessage = ({
+const StatusMessage = ({
   text,
   status = 'error', 
 }: StatusMessageProps) => {
@@ -17,4 +17,4 @@ const ErrorMessage = ({
   );
 };
 
-export default ErrorMessage;
+export default StatusMessage;

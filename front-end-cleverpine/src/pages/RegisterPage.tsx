@@ -27,6 +27,8 @@ const LoginPage = () => {
     confirmationPassword: string;
   }
 
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
   const {
     register,
     formState: { errors },
@@ -85,8 +87,14 @@ const LoginPage = () => {
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
-                {...register("password", { required: true })}
-                aria-invalid={errors.password ? "true" : "false"}
+                {...register("password", {
+                  required: true,
+                  pattern: {
+                    value: passwordRegex,
+                    message:
+                      "Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, and one number.",
+                  },
+                })}                aria-invalid={errors.password ? "true" : "false"}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -118,15 +126,8 @@ const LoginPage = () => {
                     "
               />
             )}
-            {(errors.firstName ||
-              errors.email ||
-              errors.password ||
-              errors.confirmationPassword) && (
-              <StatusMessage
-                text="Please, enter your credentials
-
-                    "
-              />
+               {errors.password && password && (
+              <StatusMessage text={errors.password.message || ""} />
             )}
           </FormControl>
           <BigButton
