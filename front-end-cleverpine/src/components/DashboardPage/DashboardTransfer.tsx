@@ -19,8 +19,8 @@
   import TransferSender from "./DashboardTransferComponents/TransferSender";
 
   const steps = [
-    { title: "Enter your bank credentials", description: "First Step", component: TransferSender },
-    { title: "Enter receiver's bank credentials", description: "Second Step", component: TransferReceiver },
+    { title: "Enter receiver's bank credentials", description: "First Step", component:  TransferReceiver},
+    { title: "Enter your bank credentials", description: "Second Step", component:  TransferSender},
     { title: "Finalize transaction", description: "Final Step" },
   ];
 
