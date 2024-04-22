@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -65,12 +65,15 @@ const DashboardSettings = () => {
   };
 
   const handleFinalize = () => {
+    // const transactionsData1 = JSON.parse(localStorage.getItem("transactionsData") || "[]");
+
     const transactionsData = {
       receiverData,
       senderData,
       timestamp: new Date().toISOString(),
     };
 
+    // localStorage.setItem("transactionsData", JSON.stringify([...transactionsData1, transactionsData]));
     localStorage.setItem("transactionsData", JSON.stringify(transactionsData));
 
     showFinalToast(true);
@@ -84,7 +87,6 @@ const DashboardSettings = () => {
         setReceiverData={setReceiverData}
         senderData={senderData}
         setSenderData={setSenderData}
-        
       />
     ) : null;
   };

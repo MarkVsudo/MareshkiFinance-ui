@@ -15,6 +15,7 @@ import { AuthTitle } from "../components/AuthPages/AuthTitle";
 import { BigButton } from "../components/AuthPages/BigButton";
 import { SubmitHandler, useForm } from "react-hook-form";
 import StatusMessage from "../components/AuthPages/StatusMessage";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
@@ -94,7 +95,8 @@ const LoginPage = () => {
                     message:
                       "Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, and one number.",
                   },
-                })}                aria-invalid={errors.password ? "true" : "false"}
+                })}
+                aria-invalid={errors.password ? "true" : "false"}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -126,7 +128,7 @@ const LoginPage = () => {
                     "
               />
             )}
-               {errors.password && password && (
+            {errors.password && password && (
               <StatusMessage text={errors.password.message || ""} />
             )}
           </FormControl>
@@ -136,6 +138,12 @@ const LoginPage = () => {
             bgcolor="messenger"
             variant="solid"
           ></BigButton>
+          <Text pt="1rem" textAlign="center">
+            Already have an account? {" "}
+            <Link className="redirect-link" to="/login">
+              Log in
+            </Link>
+          </Text>
         </form>
       </Box>
     </>

@@ -10,11 +10,14 @@ import {
   Checkbox,
   Stack,
   Box,
+  Text,
+  Flex,
 } from "@chakra-ui/react";
 import { AuthTitle } from "../components/AuthPages/AuthTitle";
 import { BigButton } from "../components/AuthPages/BigButton";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StatusMessage from "../components/AuthPages/StatusMessage";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
@@ -82,9 +85,17 @@ const LoginPage = () => {
               />
             )}
           </FormControl>
-          <Checkbox defaultChecked mb="1.5rem">
-            Remember me
-          </Checkbox>
+          <Flex justifyContent='space-between'>
+            <Checkbox defaultChecked mb="1.5rem">
+              Remember me
+            </Checkbox>
+
+            <Text>
+              <Link className="redirect-link" to="/register">
+                Sign up?
+              </Link>
+            </Text>
+          </Flex>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
               onHandleSubmit={() => console.log("Sign in")}
