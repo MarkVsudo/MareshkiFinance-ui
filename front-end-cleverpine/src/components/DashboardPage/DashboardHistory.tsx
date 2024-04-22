@@ -1,86 +1,101 @@
+import React from "react";
 import {
-  Card,
-  CardBody,
-  CardHeader,
   Flex,
-  Heading,
+  Box,
+  Text,
   Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
   Thead,
+  Tbody,
   Tr,
+  Th,
+  Td,
 } from "@chakra-ui/react";
 
-type Transfer = {
-  nameReceiver: string
-  iban: string
-  bicSwift: string
-  bank: string
-  amount: number
-  currency: string
-  description: string
-  nameSender: string
-  paymentSystem: string
-  date: string
+interface Transaction {
+  amount?: number;
+  currency?: string;
+  description?: string;
+  paymentSystem?: string;
+  receiverBIC?: string;
+  receiverBank?: string;
+  receiverIBAN?: string;
+  receiverName?: string;
+  selectedDate?: string;
+  senderName?: string;
+  balance?: number;
+  status?: string;
+  // senderAccountType?: string;
+  // senderCurrency?: string;
 }
 
-const DashboardTransactions = () => {
-  return (
-    <Flex  justifyContent='center' alignItems='center'>
-      <Card w="max-content">
-        <CardHeader>
-          <Heading size="md">Transactions history</Heading>
-        </CardHeader>
+const TransactionsTable: React.FC = () => {
+  const transactionsData = localStorage.getItem("transactionsData");
+  const { receiverData, senderData } = transactionsData
+    ? JSON.parse(transactionsData)
+    : { receiverData: {}, senderData: {} };
 
-        <CardBody>
-        <TableContainer>
-      <Table variant="simple">
-        <TableCaption>Bank Transactions</TableCaption>
-        <Thead>
-          <Tr>
-            <Th>Date</Th>
-            <Th>Description</Th>
-            <Th isNumeric>Amount</Th>
-            <Th isNumeric>Balance</Th>
-            <Th>Type</Th>
-            <Th>Status</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Td>2024-04-15</Td>
-            <Td>Deposit from Employer</Td>
-            <Td isNumeric>$2000.00</Td>
-            <Td isNumeric>$5000.00</Td>
-            <Td>Deposit</Td>
-            <Td>Completed</Td>
-          </Tr>
-          <Tr>
-            <Td>2024-04-16</Td>
-            <Td>Electricity Bill Payment</Td>
-            <Td isNumeric>-$100.00</Td>
-            <Td isNumeric>$4900.00</Td>
-            <Td>Withdrawal</Td>
-            <Td>Completed</Td>
-          </Tr>
-          <Tr>
-            <Td>2024-04-17</Td>
-            <Td>Transfer to Savings Account</Td>
-            <Td isNumeric>-$500.00</Td>
-            <Td isNumeric>$4400.00</Td>
-            <Td>Transfer</Td>
-            <Td>Completed</Td>
-          </Tr>
-        </Tbody>
-      </Table>
-    </TableContainer>
-        </CardBody>
-      </Card>
+  const transactions: Transaction[] = [
+    {
+      amount: parseFloat(receiverData.amount),
+      currency: receiverData.currency,
+      description: receiverData.description,
+      paymentSystem: receiverData.paymentSystem,
+      receiverBIC: receiverData.receiverBIC,
+      receiverBank: receiverData.receiverBank,
+      receiverIBAN: receiverData.receiverIBAN,
+      receiverName: receiverData.receiverName,
+      selectedDate: receiverData.selectedDate,
+      senderName: receiverData.senderName,
+      // senderAccountType: senderData.senderAccountType,
+      // senderCurrency: senderData.senderCurrency,
+    },
+  ];
+
+  return (
+    <Flex justifyContent="center" alignItems="center">
+      <Box w="max-content">
+        <Text fontSize="xl" fontWeight="bold" mb={4}>
+          Transactions history
+        </Text>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th isNumeric>Amount</Th>
+              <Th>Currency</Th>
+              <Th>Description</Th>
+              <Th>Payment System</Th>
+              <Th>Receiver BIC</Th>
+              <Th>Receiver IBAN</Th>
+              <Th>Receiver Name</Th>
+              <Th>Date</Th>
+              <Th>Sender Name</Th>
+              {/* <Th>Sender Account Type</Th>
+              <Th>Sender Currency</Th> */}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {transactions.map((transaction, index) => (
+              <Tr key={index}>
+                <Td isNumeric>
+                  {transaction.amount && `${transaction.amount.toFixed(2)}`}
+                </Td>
+                <Td>{transaction.currency}</Td>
+                <Td>{transaction.description}</Td>
+                <Td>{transaction.paymentSystem}</Td>
+                <Td>{transaction.receiverBIC}</Td>
+                <Td>{transaction.receiverIBAN}</Td>
+                <Td>{transaction.receiverBank}</Td>
+                <Td>{transaction.selectedDate}</Td>
+                <Td>{transaction.receiverName}</Td>
+                {/* <Td>{transaction.senderAccountType}</Td>
+                <Td>{transaction.senderCurrency}</Td> */}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
     </Flex>
   );
 };
 
-export default DashboardTransactions;
+export default TransactionsTable;
