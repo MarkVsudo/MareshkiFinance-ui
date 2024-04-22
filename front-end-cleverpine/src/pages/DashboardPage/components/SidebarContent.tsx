@@ -1,18 +1,18 @@
+// SidebarContent.tsx
 import { Box, CloseButton, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { LinkItems, NavItem } from "./NavItem";
 
 interface SidebarProps {
   onClose: () => void;
-  handleNavItemClick: (itemName: string) => void;
 }
 
-const SidebarContent = ({ onClose, handleNavItemClick, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [activeLink, setActiveLink] = useState<string>(LinkItems[0].name);
 
   const handleLinkClick = (itemName: string) => {
     setActiveLink(itemName);
-    handleNavItemClick(itemName);
   };
 
   return (
@@ -34,14 +34,15 @@ const SidebarContent = ({ onClose, handleNavItemClick, ...rest }: SidebarProps) 
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem
-          key={link.name}
-          icon={link.icon}
-          onClick={() => handleLinkClick(link.name)}
-          className={activeLink === link.name ? "active-link" : ""}
-        >
-          {link.name}
-        </NavItem>
+        <Link to={link.path} key={link.name}>
+          <NavItem
+            icon={link.icon}
+            onClick={() => handleLinkClick(link.name)}
+            className={activeLink === link.name ? "active-link" : ""}
+          >
+            {link.name}
+          </NavItem>
+        </Link>
       ))}
     </Box>
   );

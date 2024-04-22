@@ -42,7 +42,7 @@ interface SenderData {
   senderCurrency?: string;
 }
 
-const DashboardSettings = () => {
+const DashboardTransfer = () => {
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
     count: steps.length,
@@ -143,4 +143,4 @@ const DashboardSettings = () => {
   );
 };
 
-export default DashboardSettings;
+export default DashboardTransfer;

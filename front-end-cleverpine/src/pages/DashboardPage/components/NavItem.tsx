@@ -7,13 +7,28 @@ import { AiOutlineHistory, AiOutlineUser } from "react-icons/ai";
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  path: string;
 }
 
 export const LinkItems: Array<LinkItemProps> = [
-  { name: "Profile", icon: AiOutlineUser },
-  { name: "Transfer", icon: GrTransaction },
-  { name: "History", icon: AiOutlineHistory },
+  {
+    name: "Profile",
+    icon: AiOutlineUser,
+    path: "/profile",
+  },
+  {
+    name: "Transfers",
+    icon: GrTransaction,
+    path: "/transfers",
+  },
+  {
+    name: "History",
+    icon: AiOutlineHistory,
+    path: "/history",
+  },
 ];
+
+
 
 interface NavItemProps {
   icon: IconType;

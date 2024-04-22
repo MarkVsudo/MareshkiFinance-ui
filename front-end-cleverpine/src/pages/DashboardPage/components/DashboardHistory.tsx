@@ -28,7 +28,7 @@ interface Transaction {
   // senderCurrency?: string;
 }
 
-const TransactionsTable: React.FC = () => {
+const DashboardHistory: React.FC = () => {
   const transactionsData = localStorage.getItem("transactionsData");
   const { receiverData, senderData } = transactionsData
     ? JSON.parse(transactionsData)
@@ -98,4 +98,4 @@ const TransactionsTable: React.FC = () => {
   );
 };
 
-export default TransactionsTable;
+export default DashboardHistory;
