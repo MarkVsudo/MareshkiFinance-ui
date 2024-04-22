@@ -1,4 +1,3 @@
-// TransferReceiver.tsx
 import {
   ChangeEvent,
   Dispatch,
@@ -24,6 +23,11 @@ interface ReceiverData {
   receiverIBAN?: string;
   receiverBIC?: string;
   receiverBank?: string;
+  description?: string;
+  currency?: string;
+  amount?: number;
+  paymentSystem?: string;
+  senderName?: string;
 }
 
 interface TransferReceiverProps {
@@ -51,7 +55,7 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
     setMinDateTime(minDatetimeString);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setReceiverData((prevData) => ({
       ...prevData,
@@ -100,24 +104,34 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
               />
             </Flex>
             <Flex flexDirection="column" gap="1rem" w="lg">
-              <NumberInput defaultValue={10} precision={2} min={10} step={0.2}>
-                <NumberInputField />
+              <NumberInput defaultValue={10} precision={2} min={10} step={0.2} >
+                <NumberInputField name="amount" value={receiverData.amount || '10.00'} onChange={handleChange}/>
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>{" "}
-              <Select placeholder="Currency">
-                <option value="option1">BGN</option>
-                <option value="option2">EUR</option>
-                <option value="option3">USD</option>
+              <Select
+                placeholder="Currency"
+                value={receiverData.currency || ""}
+                onChange={handleChange}
+                name="currency"
+              >
+                <option value="BGN">BGN</option>
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
               </Select>
-              <Select placeholder="Payment system">
-                <option value="option1">BISERA</option>
-                <option value="option2">RINGS</option>
+              <Select
+                placeholder="Payment system"
+                value={receiverData.paymentSystem || ""}
+                onChange={handleChange}
+                name="paymentSystem"
+              >
+                <option value="BISERA">BISERA</option>
+                <option value="RINGS">RINGS</option>
               </Select>
-              <Input placeholder="Reason for transfer" />
-              <Input placeholder="Name of sender" />
+              <Input placeholder="Reason for transfer" name='description' value={receiverData.description || ''} onChange={handleChange} />
+              <Input placeholder="Name of sender" name="senderName" value={receiverData.senderName || ''} onChange={handleChange}/>
             </Flex>
           </Flex>
         </form>

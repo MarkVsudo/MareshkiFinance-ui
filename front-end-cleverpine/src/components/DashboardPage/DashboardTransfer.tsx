@@ -30,6 +30,11 @@ interface ReceiverData {
   receiverIBAN?: string;
   receiverBIC?: string;
   receiverBank?: string;
+  description?: string;
+  currency?: string;
+  amount?: number;
+  paymentSystem?: string;
+  senderName?: string;
 }
 
 interface SenderData {
