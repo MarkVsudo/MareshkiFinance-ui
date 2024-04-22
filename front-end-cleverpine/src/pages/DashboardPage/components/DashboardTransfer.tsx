@@ -65,7 +65,6 @@ const DashboardSettings = () => {
   };
 
   const handleFinalize = () => {
-    // const transactionsData1 = JSON.parse(localStorage.getItem("transactionsData") || "[]");
 
     const transactionsData = {
       receiverData,
@@ -73,8 +72,6 @@ const DashboardSettings = () => {
       timestamp: new Date().toISOString(),
     };
 
-    // localStorage.setItem("transactionsData", JSON.stringify([...transactionsData1, transactionsData]));
-    localStorage.getItem("")
     localStorage.setItem("transactionsData", JSON.stringify(transactionsData));
 
     showFinalToast(true);
@@ -82,7 +79,7 @@ const DashboardSettings = () => {
 
   const renderStepComponent = () => {
     const StepComponent = steps[activeStep].component;
-    return StepComponent ? (
+    return StepComponent && activeStep < steps.length - 1 ? (
       <StepComponent
         receiverData={receiverData}
         setReceiverData={setReceiverData}
@@ -104,8 +101,8 @@ const DashboardSettings = () => {
 
   return (
     <>
-      <Flex gap="5rem" flexDirection="column">
-        <Stepper index={activeStep} orientation="horizontal" w="100%" gap="0">
+      <Flex gap="5rem">
+        <Stepper index={activeStep} orientation="vertical" w="100%" gap="0">
           {steps.map((step, index) => (
             <Step key={index}>
               <StepIndicator>
@@ -115,21 +112,21 @@ const DashboardSettings = () => {
                   active={<StepNumber />}
                 />
               </StepIndicator>
-
-              <Box flexShrink="0">
+    
+              <Box flexShrink='0'>
                 <StepTitle>{step.title}</StepTitle>
                 <StepDescription>{step.description}</StepDescription>
+                <Flex textAlign="center" justifyContent="center" alignItems="center" my='1rem'>
+                  {index === activeStep && renderStepComponent()}
+                </Flex>
               </Box>
-
+    
               <StepSeparator />
             </Step>
           ))}
         </Stepper>
-        <Flex textAlign="center" justifyContent="center" alignItems="center">
-          {renderStepComponent()}
-        </Flex>
       </Flex>
-
+    
       <Box mt="4" textAlign="center">
         <Button colorScheme="blue" onClick={handlePrev} disabled={activeStep === 0} mr="2">
           Previous
