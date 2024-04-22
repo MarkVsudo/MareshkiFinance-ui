@@ -1,7 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Flex, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select } from "@chakra-ui/react";
+// TransferReceiver.tsx
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import {
+  Flex,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Select,
+} from "@chakra-ui/react";
 
-const TransferSender: React.FC = () => {
+interface ReceiverData {
+  selectedDate?: string;
+  receiverName?: string;
+  receiverIBAN?: string;
+  receiverBIC?: string;
+  receiverBank?: string;
+}
+
+interface TransferReceiverProps {
+  receiverData: ReceiverData;
+  setReceiverData: Dispatch<SetStateAction<ReceiverData>>;
+}
+
+const TransferReceiver: FC<TransferReceiverProps> = ({
+  receiverData,
+  setReceiverData,
+}) => {
   const [minDateTime, setMinDateTime] = useState<string>("");
 
   useEffect(() => {
@@ -18,6 +51,14 @@ const TransferSender: React.FC = () => {
     setMinDateTime(minDatetimeString);
   }, []);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setReceiverData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <>
       <Flex flexDirection="column">
@@ -29,11 +70,34 @@ const TransferSender: React.FC = () => {
                 size="md"
                 type="date"
                 min={minDateTime}
+                name="selectedDate"
+                value={receiverData.selectedDate || ""}
+                onChange={handleChange}
               />
-              <Input placeholder="Name of receiver" />
-              <Input placeholder="IBAN" />
-              <Input placeholder="BIC" />
-              <Input placeholder="Bank of receiver" />
+              <Input
+                placeholder="Name of receiver"
+                name="receiverName"
+                value={receiverData.receiverName || ""}
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="IBAN"
+                name="receiverIBAN"
+                value={receiverData.receiverIBAN || ""}
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="BIC"
+                name="receiverBIC"
+                value={receiverData.receiverBIC || ""}
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Bank of receiver"
+                name="receiverBank"
+                value={receiverData.receiverBank || ""}
+                onChange={handleChange}
+              />
             </Flex>
             <Flex flexDirection="column" gap="1rem" w="lg">
               <NumberInput defaultValue={10} precision={2} min={10} step={0.2}>
@@ -48,7 +112,7 @@ const TransferSender: React.FC = () => {
                 <option value="option2">EUR</option>
                 <option value="option3">USD</option>
               </Select>
-              <Select placeholder="Payment account">
+              <Select placeholder="Payment system">
                 <option value="option1">BISERA</option>
                 <option value="option2">RINGS</option>
               </Select>
@@ -62,4 +126,4 @@ const TransferSender: React.FC = () => {
   );
 };
 
-export default TransferSender;
+export default TransferReceiver;
