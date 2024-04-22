@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/auth.css";
+import "../../styles/auth.css";
 import {
   FormControl,
   FormLabel,
@@ -13,10 +13,10 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
-import { AuthTitle } from "../components/AuthPages/AuthTitle";
-import { BigButton } from "../components/AuthPages/BigButton";
+import { AuthTitle } from "../../components/AuthPages/AuthTitle";
+import { BigButton } from "../../components/AuthPages/BigButton";
 import { useForm, SubmitHandler } from "react-hook-form";
-import StatusMessage from "../components/AuthPages/StatusMessage";
+import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {

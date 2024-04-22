@@ -1,5 +1,5 @@
 "use client";
-import "../styles/profile.css";
+import "../../styles/profile.css";
 import {
   IconButton,
   Avatar,
@@ -26,9 +26,10 @@ import { AiOutlineUser, AiOutlineHistory  } from "react-icons/ai";
 import { GrTransaction } from "react-icons/gr";
 import { VscSignIn } from "react-icons/vsc";
 import { IconType } from "react-icons";
-import DashboardProfile from "../components/DashboardPage/DashboardProfile";
-import DashboardTransactions from "../components/DashboardPage/DashboardHistory";
-import DashboardSettings from "../components/DashboardPage/DashboardTransfer";
+import DashboardProfile from "./components/DashboardProfile";
+import DashboardTeansfer from "./components/DashboardTransfer";
+import DashboardHistory from "./components/DashboardHistory";
+
 import { useState } from "react";
 interface LinkItemProps {
   name: string;
@@ -253,8 +254,8 @@ const SidebarWithHeader = () => {
       >
         {/* Content */}
         {selectedNavItem === "Profile" && <DashboardProfile />}
-        {selectedNavItem === "Transfer" && <DashboardSettings />}
-        {selectedNavItem === "History" && <DashboardTransactions />}
+        {selectedNavItem === "Transfer" && <DashboardTeansfer />}
+        {selectedNavItem === "History" && <DashboardHistory />}
       </Box>
     </Box>
   );

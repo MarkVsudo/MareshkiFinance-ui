@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/auth.css";
+import "../../styles/auth.css";
 import {
   FormControl,
   FormLabel,
@@ -11,11 +11,12 @@ import {
   Box,
   Flex,
 } from "@chakra-ui/react";
-import { AuthTitle } from "../components/AuthPages/AuthTitle";
-import { BigButton } from "../components/AuthPages/BigButton";
+import { AuthTitle } from "../../components/AuthPages/AuthTitle";
+import { BigButton } from "../../components/AuthPages/BigButton";
 import { SubmitHandler, useForm } from "react-hook-form";
-import StatusMessage from "../components/AuthPages/StatusMessage";
+import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
+import { AuthContainer } from "../../components/AuthPages/AuthContainer";
 
 const LoginPage = () => {
   const [show, setShow] = React.useState(false);
@@ -42,16 +43,8 @@ const LoginPage = () => {
   const confirmationPassword = watch("confirmationPassword");
 
   return (
-    <>
-      <Box
-        w="40rem"
-        h="100%"
-        bg="white"
-        p="3rem"
-        display="flex"
-        flexDirection="column"
-        gap="1.5rem"
-      >
+  
+      <AuthContainer>
         <Flex flexDirection="column">
           <AuthTitle
             text="Get started
@@ -145,8 +138,8 @@ const LoginPage = () => {
             </Link>
           </Text>
         </form>
-      </Box>
-    </>
+      </AuthContainer>
+    
   );
 };
 

@@ -15,8 +15,8 @@ import {
   useSteps,
   useToast,
 } from "@chakra-ui/react";
-import TransferReceiver from "./DashboardTransferComponents/TransferReceiver";
-import TransferSender from "./DashboardTransferComponents/TransferSender";
+import TransferReceiver from "./TransferReceiver";
+import TransferSender from "./TransferSender";
 
 const steps = [
   { title: "Enter receiver's bank credentials", description: "First Step", component: TransferReceiver },
@@ -74,6 +74,7 @@ const DashboardSettings = () => {
     };
 
     // localStorage.setItem("transactionsData", JSON.stringify([...transactionsData1, transactionsData]));
+    localStorage.getItem("")
     localStorage.setItem("transactionsData", JSON.stringify(transactionsData));
 
     showFinalToast(true);
