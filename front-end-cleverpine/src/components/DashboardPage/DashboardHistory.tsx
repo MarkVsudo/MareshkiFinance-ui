@@ -14,6 +14,19 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
+type Transfer = {
+  nameReceiver: string
+  iban: string
+  bicSwift: string
+  bank: string
+  amount: number
+  currency: string
+  description: string
+  nameSender: string
+  paymentSystem: string
+  date: string
+}
+
 const DashboardTransactions = () => {
   return (
     <Flex  justifyContent='center' alignItems='center'>
