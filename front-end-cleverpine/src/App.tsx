@@ -2,10 +2,10 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import Layout from "./Layout";
-import DashboardProfile from "./pages/DashboardPage/components/DashboardProfile";
-import DashboardTransfer from "./pages/DashboardPage/components/DashboardTransfer";
-import DashboardHistory from "./pages/DashboardPage/components/DashboardHistory";
+import Layout from "./pages/Layout/Layout";
+import DashboardProfile from "./pages/DashboardPage/DashboardProfile/DashboardProfile";
+import DashboardTransfer from "./pages/DashboardPage/DashboardTransfer/DashboardTransfer";
+import DashboardHistory from "./pages/DashboardPage/DashboardHistory/DashboardHistory";
 
 function App() {
   return (

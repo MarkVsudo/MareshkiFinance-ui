@@ -1,13 +1,13 @@
-import "../../styles/profile.css";
+import "../../../styles/profile.css";
 import { Box, Drawer, DrawerContent, useColorModeValue, useDisclosure } from "@chakra-ui/react";
-import SidebarContent from "./components/SidebarContent";
-import MobileNav from "./components/MobileNav";
+import SidebarContent from "./SidebarContent";
+import MobileNav from "./MobileNav";
 interface DashboardPageProps {
   children: React.ReactNode;
 }
 
 
-const SidebarWithHeader = ({ children }: DashboardPageProps) => {
+const NavigationBar = ({ children }: DashboardPageProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -38,4 +38,4 @@ const SidebarWithHeader = ({ children }: DashboardPageProps) => {
   );
 };
 
-export default SidebarWithHeader;
+export default NavigationBar;

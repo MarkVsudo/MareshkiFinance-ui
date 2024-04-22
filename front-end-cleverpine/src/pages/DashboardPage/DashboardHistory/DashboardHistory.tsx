@@ -52,7 +52,7 @@ const DashboardHistory: React.FC = () => {
   ];
 
   return (
-    <Flex justifyContent="center" alignItems="center">
+    <Flex>
       <Box w="max-content">
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           Transactions history
