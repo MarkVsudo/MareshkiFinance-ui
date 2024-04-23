@@ -18,8 +18,16 @@ import { BigButton } from "../../components/AuthPages/BigButton";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
+import { UsersApi } from "../../openapi";
 
 const LoginPage = () => {
+  const userApi = new UsersApi();
+
+  const UserLoginData = {
+    email: "user@example.com",
+    password: "string",
+  };
+
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -85,7 +93,7 @@ const LoginPage = () => {
               />
             )}
           </FormControl>
-          <Flex justifyContent='space-between'>
+          <Flex justifyContent="space-between">
             <Checkbox defaultChecked mb="1.5rem">
               Remember me
             </Checkbox>
@@ -98,7 +106,7 @@ const LoginPage = () => {
           </Flex>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
-              onHandleSubmit={() => console.log("Sign in")}
+              onHandleSubmit={() => userApi.login({ userLogin: UserLoginData })}
               title="Sign in"
               bgcolor="messenger"
               variant="solid"

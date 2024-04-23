@@ -24,6 +24,34 @@ const steps = [
   { title: "Finalize transaction", description: "Final Step" },
 ];
 
+// {
+//   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+//   "spaces": 2,
+//   "generator-cli": {
+//     "version": "7.5.0",
+//     "storageDir": "C:/Users/Mark/Desktop/Front-End%20Team%202/front-end-cleverpine", 
+//     "generators": { 
+//       "v2.0": { 
+//         "generatorName": "typescript-angular",
+//         "output": "#{cwd}/output/v2.0/#{ext}/#{name}",
+//         "glob": "/*.{json,yaml}",
+//         "additionalProperties": {
+//           "ngVersion": "6.1.7",
+//           "npmName": "restClient",
+//           "supportsES6": "true",
+//           "npmVersion": "6.9.0",
+//           "withInterfaces": true
+//         }
+//       },
+//       "v3.0": { 
+//         "generatorName": "typescript-fetch",
+//         "output": "#{cwd}/output/v3.0/#{ext}/#{name}",
+//         "glob": "/template-api.{json,yaml}"
+//       }
+//     }
+//   }
+// }
+
 interface ReceiverData {
   selectedDate?: string;
   receiverName?: string;
