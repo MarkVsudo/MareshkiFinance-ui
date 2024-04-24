@@ -15,14 +15,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
 import { AuthContainer } from "../../components/AuthPages/AuthContainer";
-import RegisterService from "../../services/RegisterService";
 import { useState } from "react";
+import { useUsersServiceRegister } from "../../../openapi/queries";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
+  const { mutate,  isError } = useUsersServiceRegister();
+
   const handleClick = () => setShow(!show);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const registerService = RegisterService.getInstance();
 
   interface IFormInput {
     firstName: string;
@@ -42,16 +42,18 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const response = await registerService.register(
-        data.firstName,
-        data.email,
-        data.password
-      );
-      console.log("Register response: ", response);
+      await mutate({
+        requestBody: {
+          firstName: data.firstName,
+          email: data.email,
+          password: data.password,
+        },
+      });
     } catch (error) {
-      setErrorMessage("Invalid data");
+      console.error("Registration failed:", error);
     }
   };
+
   const password = watch("password");
   const confirmationPassword = watch("confirmationPassword");
 
@@ -136,8 +138,9 @@ const LoginPage = () => {
           {errors.password && password && (
             <StatusMessage text={errors.password.message || ""} />
           )}
-          {errorMessage && <StatusMessage text={errorMessage} />}
-        </FormControl>
+          {isError && (
+            <StatusMessage text="Incorrect data." />
+          )}        </FormControl>
         <BigButton
           onHandleSubmit={() => console.log("Sign up")}
           title="Sign up"

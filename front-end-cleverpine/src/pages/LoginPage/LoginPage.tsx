@@ -18,13 +18,12 @@ import { BigButton } from "../../components/AuthPages/BigButton";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
-import LoginService from "../../services/LoginService";
 import { useState } from "react";
+import { useUsersServiceLogin } from "../../../openapi/queries";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const loginService = LoginService.getInstance();
+  const { mutate,  isError } = useUsersServiceLogin();
 
   const handleClick = () => setShow(!show);
 
@@ -35,16 +34,20 @@ const LoginPage = () => {
 
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
   } = useForm<IFormInput>();
-  
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const response = await loginService.login(data.email, data.password);
-      console.log("Login response: ", response);
+      await mutate({
+        requestBody: {
+          email: data.email,
+          password: data.password,
+        },
+      });
     } catch (error) {
-      setErrorMessage("Invalid email or password");
+      console.error("Login failed:", error);
     }
   };
 
@@ -90,7 +93,6 @@ const LoginPage = () => {
             {(errors.email || errors.password) && (
               <StatusMessage text="Please, enter your credentials" />
             )}
-            {errorMessage && <StatusMessage text={errorMessage} />}
           </FormControl>
           <Flex justifyContent="space-between">
             <Checkbox defaultChecked mb="1.5rem">
@@ -105,10 +107,10 @@ const LoginPage = () => {
           </Flex>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
-              title="Sign in"
+              title={  "Sign in"}
               bgcolor="messenger"
               variant="solid"
-              onHandleSubmit={() => console.log("Sign in clicked")}
+              onHandleSubmit={() => console.log("Forgot password clicked")}
             />
             <BigButton
               title="Forgot password"
@@ -117,6 +119,9 @@ const LoginPage = () => {
               onHandleSubmit={() => console.log("Forgot password clicked")}
             />
           </Stack>
+          {isError && (
+            <StatusMessage text="Incorrect email or password. Please try again." />
+          )}
         </form>
       </Box>
     </>
