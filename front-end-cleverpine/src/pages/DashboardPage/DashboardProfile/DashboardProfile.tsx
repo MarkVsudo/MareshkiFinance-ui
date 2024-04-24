@@ -67,8 +67,8 @@ const DashboardProfile = () => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
+    setBankAccount({
+      ...bankAccount,
       [name]: value,
     });
   };
