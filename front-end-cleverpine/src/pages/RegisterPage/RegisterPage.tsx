@@ -1,4 +1,3 @@
-import React from "react";
 import "../../styles/auth.css";
 import {
   FormControl,
@@ -17,11 +16,12 @@ import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
 import { AuthContainer } from "../../components/AuthPages/AuthContainer";
 import RegisterService from "../../services/RegisterService";
+import { useState } from "react";
 
 const LoginPage = () => {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const registerService = RegisterService.getInstance();
 
   interface IFormInput {

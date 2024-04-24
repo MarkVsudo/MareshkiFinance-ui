@@ -21,6 +21,7 @@ class LoginService {
     const response = await this.usersApi?.login({ userLogin });
     return response as TokenResponse;
   }
+
 }
 
 export default LoginService;

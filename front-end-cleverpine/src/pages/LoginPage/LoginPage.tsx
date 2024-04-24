@@ -1,5 +1,4 @@
 // LoginPage.tsx
-import React from "react";
 import "../../styles/auth.css";
 import {
   FormControl,
@@ -20,10 +19,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
 import LoginService from "../../services/LoginService";
+import { useState } from "react";
 
 const LoginPage = () => {
-  const [show, setShow] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const loginService = LoginService.getInstance();
 
   const handleClick = () => setShow(!show);
