@@ -1,19 +1,19 @@
 import { UserProfileResponse, UsersApi } from "../openapi";
 
-class UserService {
-  private static instance: UserService | null = null;
+class GetUserService {
+  private static instance: GetUserService | null = null;
   private usersApi: UsersApi | null = null;
 
   private constructor() {
     this.usersApi = new UsersApi();
   }
 
-  public static getInstance(): UserService {
-    if (!UserService.instance) {
-      UserService.instance = new UserService();
+  public static getInstance(): GetUserService {
+    if (!GetUserService.instance) {
+      GetUserService.instance = new GetUserService();
     }
 
-    return UserService.instance;
+    return GetUserService.instance;
   }
 
   public async getUserProfile(userId: number): Promise<UserProfileResponse> {
@@ -22,4 +22,4 @@ class UserService {
   }
 }
 
-export const GetUserService = UserService.getInstance();
+export default GetUserService;

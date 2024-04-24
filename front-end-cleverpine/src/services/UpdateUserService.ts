@@ -1,19 +1,19 @@
 import { UserProfileResponse, UsersApi, UserProfileUpdate } from "../openapi";
 
-class UserService {
-  private static instance: UserService | null = null;
+class UpdateUserService {
+  private static instance: UpdateUserService | null = null;
   private usersApi: UsersApi | null = null;
 
   private constructor() {
     this.usersApi = new UsersApi();
   }
 
-  public static getInstance(): UserService {
-    if (!UserService.instance) {
-      UserService.instance = new UserService();
+  public static getInstance(): UpdateUserService {
+    if (!UpdateUserService.instance) {
+      UpdateUserService.instance = new UpdateUserService();
     }
 
-    return UserService.instance;
+    return UpdateUserService.instance;
   }
 
   public async updateUserProfile(
@@ -28,4 +28,4 @@ class UserService {
   }
 }
 
-export const UpdateUserService = UserService.getInstance();
+export default UpdateUserService;
