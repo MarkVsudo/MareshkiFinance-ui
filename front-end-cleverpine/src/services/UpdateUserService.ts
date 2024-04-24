@@ -1,16 +1,31 @@
 import { UserProfileResponse, UsersApi, UserProfileUpdate } from "../openapi";
 
-const usersApi = new UsersApi();
+class UserService {
+  private static instance: UserService | null = null;
+  private usersApi: UsersApi | null = null;
 
-export const UpdateUserService = {
-  updateUserProfile: async (
+  private constructor() {
+    this.usersApi = new UsersApi();
+  }
+
+  public static getInstance(): UserService {
+    if (!UserService.instance) {
+      UserService.instance = new UserService();
+    }
+
+    return UserService.instance;
+  }
+
+  public async updateUserProfile(
     userId: number,
     userProfileUpdate: UserProfileUpdate
-  ): Promise<UserProfileResponse> => {
-    const response = await usersApi.updateUserProfile({
+  ): Promise<UserProfileResponse> {
+    const response = await this.usersApi?.updateUserProfile({
       userId,
       userProfileUpdate,
     });
-    return response;
-  },
-};
+    return response as UserProfileResponse;
+  }
+}
+
+export const UpdateUserService = UserService.getInstance();

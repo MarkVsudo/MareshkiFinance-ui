@@ -1,10 +1,25 @@
-import { UsersApi, UserProfileResponse } from "../openapi";
+import { UserProfileResponse, UsersApi } from "../openapi";
 
-const usersApi = new UsersApi();
+class UserService {
+  private static instance: UserService | null = null;
+  private usersApi: UsersApi | null = null;
 
-export const GetUserService = {
-  getUserProfile: async (userId: number): Promise<UserProfileResponse> => {
-    const response = await usersApi.getUserProfile({ userId });
-    return response;
-  },
-};
+  private constructor() {
+    this.usersApi = new UsersApi();
+  }
+
+  public static getInstance(): UserService {
+    if (!UserService.instance) {
+      UserService.instance = new UserService();
+    }
+
+    return UserService.instance;
+  }
+
+  public async getUserProfile(userId: number): Promise<UserProfileResponse> {
+    const response = await this.usersApi?.getUserProfile({ userId });
+    return response as UserProfileResponse;
+  }
+}
+
+export const GetUserService = UserService.getInstance();
