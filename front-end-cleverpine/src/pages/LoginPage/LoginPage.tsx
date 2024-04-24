@@ -1,3 +1,4 @@
+// LoginPage.tsx
 import React from "react";
 import "../../styles/auth.css";
 import {
@@ -18,17 +19,13 @@ import { BigButton } from "../../components/AuthPages/BigButton";
 import { useForm, SubmitHandler } from "react-hook-form";
 import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
-import { UsersApi } from "../../openapi";
+import LoginService from "../../services/LoginService";
 
 const LoginPage = () => {
-  const userApi = new UsersApi();
-
-  const UserLoginData = {
-    email: "user@example.com",
-    password: "string",
-  };
-
   const [show, setShow] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const loginService = LoginService.getInstance();
+
   const handleClick = () => setShow(!show);
 
   interface IFormInput {
@@ -41,7 +38,15 @@ const LoginPage = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const response = await loginService.login(data.email, data.password);
+      console.log("Login response: ", response);
+    } catch (error) {
+      setErrorMessage("Invalid email or password");
+    }
+  };
 
   return (
     <>
@@ -54,10 +59,7 @@ const LoginPage = () => {
         flexDirection="column"
         gap="1.5rem"
       >
-        <AuthTitle
-          text="Sign in to your account to continue
-"
-        />
+        <AuthTitle text="Sign in to your account to continue" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl mb="1.5rem" mt=".5rem">
             <FormLabel>Email address</FormLabel>
@@ -86,12 +88,9 @@ const LoginPage = () => {
               </InputRightElement>
             </InputGroup>
             {(errors.email || errors.password) && (
-              <StatusMessage
-                text="                Please, enter your credentials
-
-                    "
-              />
+              <StatusMessage text="Please, enter your credentials" />
             )}
+            {errorMessage && <StatusMessage text={errorMessage} />}
           </FormControl>
           <Flex justifyContent="space-between">
             <Checkbox defaultChecked mb="1.5rem">
@@ -106,17 +105,17 @@ const LoginPage = () => {
           </Flex>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
-              onHandleSubmit={() => userApi.login({ userLogin: UserLoginData })}
               title="Sign in"
               bgcolor="messenger"
               variant="solid"
-            ></BigButton>
+              onHandleSubmit={() => console.log("Sign in clicked")}
+            />
             <BigButton
-              onHandleSubmit={() => console.log("Forgot password")}
               title="Forgot password"
               bgcolor="messenger"
               variant="outline"
-            ></BigButton>
+              onHandleSubmit={() => console.log("Forgot password clicked")}
+            />
           </Stack>
         </form>
       </Box>

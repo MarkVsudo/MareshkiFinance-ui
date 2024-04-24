@@ -1,15 +1,30 @@
 import { TokenResponse, UserRegistration, UsersApi } from "../openapi";
 
-const usersApi = new UsersApi();
+class RegisterService {
+  private static instance: RegisterService | null = null;
+  private usersApi: UsersApi | null = null;
 
-export const RegisterService = {
-  register: async (
+  private constructor() {
+    this.usersApi = new UsersApi();
+  }
+
+  public static getInstance(): RegisterService {
+    if (!RegisterService.instance) {
+      RegisterService.instance = new RegisterService();
+    }
+
+    return RegisterService.instance;
+  }
+
+  public async register(
     firstName: string,
     email: string,
     password: string
-  ): Promise<TokenResponse> => {
+  ): Promise<TokenResponse> {
     const userRegistration: UserRegistration = { firstName, email, password };
-    const response = await usersApi.register({ userRegistration });
-    return await response;
-  },
-};
+    const response = await this.usersApi?.register({ userRegistration });
+    return response as TokenResponse;
+  }
+}
+
+export default RegisterService;

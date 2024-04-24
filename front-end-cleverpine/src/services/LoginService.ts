@@ -1,11 +1,26 @@
 import { TokenResponse, UserLogin, UsersApi } from "../openapi";
 
-const usersApi = new UsersApi();
+class LoginService {
+  private static instance: LoginService | null = null;
+  private usersApi: UsersApi | null = null;
 
-export const LoginService = {
-  login: async (email: string, password: string): Promise<TokenResponse> => {
+  private constructor() {
+    this.usersApi = new UsersApi();
+  }
+
+  public static getInstance(): LoginService {
+    if (!LoginService.instance) {
+      LoginService.instance = new LoginService();
+    }
+
+    return LoginService.instance;
+  }
+
+  public async login(email: string, password: string): Promise<TokenResponse> {
     const userLogin: UserLogin = { email, password };
-    const response = await usersApi.login({ userLogin });
-    return await response;
-  },
-};
+    const response = await this.usersApi?.login({ userLogin });
+    return response as TokenResponse;
+  }
+}
+
+export default LoginService;
