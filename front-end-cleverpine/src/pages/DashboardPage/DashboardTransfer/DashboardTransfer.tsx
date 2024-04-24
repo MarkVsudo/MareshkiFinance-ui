@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
   Flex,
+  Text,
   Step,
   StepDescription,
   StepIcon,
@@ -19,38 +20,18 @@ import TransferReceiver from "./TransferReceiver";
 import TransferSender from "./TransferSender";
 
 const steps = [
-  { title: "Enter receiver's bank credentials", description: "First Step", component: TransferReceiver },
-  { title: "Enter your bank credentials", description: "Second Step", component: TransferSender },
+  {
+    title: "Enter receiver's bank credentials",
+    description: "First Step",
+    component: TransferReceiver,
+  },
+  {
+    title: "Enter your bank credentials",
+    description: "Second Step",
+    component: TransferSender,
+  },
   { title: "Finalize transaction", description: "Final Step" },
 ];
-
-// {
-//   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
-//   "spaces": 2,
-//   "generator-cli": {
-//     "version": "7.5.0",
-//     "storageDir": "C:/Users/Mark/Desktop/Front-End%20Team%202/front-end-cleverpine", 
-//     "generators": { 
-//       "v2.0": { 
-//         "generatorName": "typescript-angular",
-//         "output": "#{cwd}/output/v2.0/#{ext}/#{name}",
-//         "glob": "/*.{json,yaml}",
-//         "additionalProperties": {
-//           "ngVersion": "6.1.7",
-//           "npmName": "restClient",
-//           "supportsES6": "true",
-//           "npmVersion": "6.9.0",
-//           "withInterfaces": true
-//         }
-//       },
-//       "v3.0": { 
-//         "generatorName": "typescript-fetch",
-//         "output": "#{cwd}/output/v3.0/#{ext}/#{name}",
-//         "glob": "/template-api.{json,yaml}"
-//       }
-//     }
-//   }
-// }
 
 interface ReceiverData {
   selectedDate?: string;
@@ -93,7 +74,6 @@ const DashboardTransfer = () => {
   };
 
   const handleFinalize = () => {
-
     const transactionsData = {
       receiverData,
       senderData,
@@ -129,7 +109,10 @@ const DashboardTransfer = () => {
 
   return (
     <>
-      <Flex gap="5rem">
+      <Flex gap="1rem" flexDirection="column">
+        <Text fontSize="xl" fontWeight="bold" mb={4}>
+          Make a transaction
+        </Text>
         <Stepper index={activeStep} orientation="vertical" w="100%" gap="0">
           {steps.map((step, index) => (
             <Step key={index}>
@@ -140,23 +123,33 @@ const DashboardTransfer = () => {
                   active={<StepNumber />}
                 />
               </StepIndicator>
-    
-              <Box flexShrink='0'>
+
+              <Box flexShrink="0">
                 <StepTitle>{step.title}</StepTitle>
                 <StepDescription>{step.description}</StepDescription>
-                <Flex textAlign="center" justifyContent="center" alignItems="center" my='1rem'>
+                <Flex
+                  textAlign="center"
+                  justifyContent="center"
+                  alignItems="center"
+                  my="1rem"
+                >
                   {index === activeStep && renderStepComponent()}
                 </Flex>
               </Box>
-    
+
               <StepSeparator />
             </Step>
           ))}
         </Stepper>
       </Flex>
-    
-      <Box mt="4" textAlign="center">
-        <Button colorScheme="blue" onClick={handlePrev} disabled={activeStep === 0} mr="2">
+
+      <Box mt="4">
+        <Button
+          colorScheme="blue"
+          onClick={handlePrev}
+          disabled={activeStep === 0}
+          mr="2"
+        >
           Previous
         </Button>
         <Button

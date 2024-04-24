@@ -1,4 +1,3 @@
-// LoginPage.tsx
 import "../../styles/auth.css";
 import {
   FormControl,
@@ -23,7 +22,7 @@ import { useUsersServiceLogin } from "../../../openapi/queries";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
-  const { mutate,  isError } = useUsersServiceLogin();
+  const { mutate, isError } = useUsersServiceLogin();
 
   const handleClick = () => setShow(!show);
 
@@ -107,7 +106,7 @@ const LoginPage = () => {
           </Flex>
           <Stack direction="column" spacing={4} align="center">
             <BigButton
-              title={  "Sign in"}
+              title={"Sign in"}
               bgcolor="messenger"
               variant="solid"
               onHandleSubmit={() => console.log("Forgot password clicked")}

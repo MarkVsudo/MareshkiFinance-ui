@@ -55,7 +55,9 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
     setMinDateTime(minDatetimeString);
   }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setReceiverData((prevData) => ({
       ...prevData,
@@ -104,8 +106,12 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
               />
             </Flex>
             <Flex flexDirection="column" gap="1rem" w="lg">
-              <NumberInput defaultValue={10} precision={2} min={10} step={0.2} >
-                <NumberInputField name="amount" value={receiverData.amount || '10.00'} onChange={handleChange}/>
+              <NumberInput defaultValue={10} precision={2} min={10} step={0.2}>
+                <NumberInputField
+                  name="amount"
+                  value={receiverData.amount || "10.00"}
+                  onChange={handleChange}
+                />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
@@ -130,8 +136,18 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
                 <option value="BISERA">BISERA</option>
                 <option value="RINGS">RINGS</option>
               </Select>
-              <Input placeholder="Reason for transfer" name='description' value={receiverData.description || ''} onChange={handleChange} />
-              <Input placeholder="Name of sender" name="senderName" value={receiverData.senderName || ''} onChange={handleChange}/>
+              <Input
+                placeholder="Reason for transfer"
+                name="description"
+                value={receiverData.description || ""}
+                onChange={handleChange}
+              />
+              <Input
+                placeholder="Name of sender"
+                name="senderName"
+                value={receiverData.senderName || ""}
+                onChange={handleChange}
+              />
             </Flex>
           </Flex>
         </form>

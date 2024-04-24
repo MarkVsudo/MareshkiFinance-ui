@@ -78,8 +78,8 @@ const DashboardProfile = () => {
   };
 
   return (
-    <Flex justifyContent="center" gap="3rem">
-      <Card w="2xl">
+    <Flex gap="3rem">
+      <Card w="50%">
         <CardHeader>
           <Heading size="md">User Information</Heading>
         </CardHeader>
@@ -124,7 +124,7 @@ const DashboardProfile = () => {
         </CardBody>
       </Card>
 
-      <Card w="2xl">
+      <Card w="50%">
         <CardHeader>
           <Heading size="md">Add Bank Account</Heading>
         </CardHeader>

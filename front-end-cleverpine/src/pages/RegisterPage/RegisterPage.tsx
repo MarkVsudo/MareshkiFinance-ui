@@ -20,7 +20,7 @@ import { useUsersServiceRegister } from "../../../openapi/queries";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
-  const { mutate,  isError } = useUsersServiceRegister();
+  const { mutate, isError } = useUsersServiceRegister();
 
   const handleClick = () => setShow(!show);
 
@@ -138,9 +138,8 @@ const LoginPage = () => {
           {errors.password && password && (
             <StatusMessage text={errors.password.message || ""} />
           )}
-          {isError && (
-            <StatusMessage text="Incorrect data." />
-          )}        </FormControl>
+          {isError && <StatusMessage text="Incorrect data." />}{" "}
+        </FormControl>
         <BigButton
           onHandleSubmit={() => console.log("Sign up")}
           title="Sign up"
