@@ -7,8 +7,9 @@ import DashboardProfile from "./pages/DashboardPage/DashboardProfile/DashboardPr
 import DashboardTransfer from "./pages/DashboardPage/DashboardTransfer/DashboardTransfer";
 import DashboardHistory from "./pages/DashboardPage/DashboardHistory/DashboardHistory";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import HomePage from "./pages/HomePage/HomePage";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route index element={<HomePage />} />
           <Route element={<Layout />}>
-            <Route index element={<DashboardProfile />} />
             <Route path="/profile" element={<DashboardProfile />} />
             <Route path="/transfers" element={<DashboardTransfer />} />
             <Route path="/history" element={<DashboardHistory />} />
