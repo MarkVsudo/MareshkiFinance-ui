@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -12,6 +12,7 @@ import {
   Select,
   Button,
 } from "@chakra-ui/react";
+import { useUsersServiceGetUserProfile } from "../../../../openapi/queries";
 
 interface BankAccount {
   accountType: string;
@@ -32,10 +33,42 @@ const DashboardProfile = () => {
     bankName: "",
   });
 
+  const [userData, setUserData] = useState({
+    userId: 0,
+    username: "",
+    firstName: "",
+    email: "",
+    image: "",
+  });
+
+  const { data: userProfile } = useUsersServiceGetUserProfile({
+    userId: userData.userId,
+  });
+
+  useEffect(() => {
+    if (userProfile) {
+      setUserData({
+        userId: userProfile.userId || 0,
+        username: userProfile.username || "",
+        firstName: userProfile.firstName || "",
+        email: userProfile.email || "",
+        image: userProfile.profile_picture_url || "",
+      });
+    } else if (!userProfile) {
+      setUserData({
+        userId: 1,
+        username: "mocked_user",
+        firstName: "Mocked Name",
+        email: "mocked@email.com",
+        image: "",
+      });
+    }
+  }, [userProfile]);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBankAccount({
-      ...bankAccount,
+    setUserData({
+      ...userData,
       [name]: value,
     });
   };
@@ -90,35 +123,22 @@ const DashboardProfile = () => {
               <Input
                 placeholder="Username"
                 name="username"
+                value={userData.username}
                 onChange={handleInputChange}
               />
               <Input
                 placeholder="First name"
                 name="firstName"
+                value={userData.firstName}
                 onChange={handleInputChange}
               />
               <Input
                 placeholder="Email"
                 name="email"
+                value={userData.email}
                 onChange={handleInputChange}
               />
-              <Input
-                placeholder="Country"
-                name="country"
-                onChange={handleInputChange}
-              />
-              <Input
-                placeholder="City"
-                name="city"
-                onChange={handleInputChange}
-              />
-              <Input
-                type="file"
-                accept="image/*"
-                pt=".25rem"
-                name="image"
-                onChange={handleInputChange}
-              />
+              <Input type="file" accept="image/*" pt=".25rem" name="image" />
             </Stack>
           </Box>
         </CardBody>
