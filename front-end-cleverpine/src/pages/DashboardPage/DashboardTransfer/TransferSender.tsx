@@ -7,6 +7,12 @@ import {
   useState,
 } from "react";
 import { Flex, Input, Select } from "@chakra-ui/react";
+import { atom, useAtom } from "jotai";
+
+export const senderDataAtom = atom({
+  senderAccountType: "",
+  senderCurrency: "",
+});
 
 interface Account {
   accountType: string;
@@ -36,11 +42,18 @@ const TransferSender: FC<TransferSenderProps> = ({
   );
   const [selectedAccountType, setSelectedAccountType] = useState<string>("");
   const [selectedCurrency, setSelectedCurrency] = useState<string>("");
+  const [storedData, setStoredData] = useAtom(senderDataAtom);
+
+  console.log(`Atom data sender: ${[]}`);
 
   const handleAccountTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const accountType = e.target.value;
     setSelectedAccountType(accountType);
     setSenderData((prevData) => ({
+      ...prevData,
+      senderAccountType: accountType,
+    }));
+    setStoredData((prevData) => ({
       ...prevData,
       senderAccountType: accountType,
     }));
@@ -50,6 +63,10 @@ const TransferSender: FC<TransferSenderProps> = ({
     const currency = e.target.value;
     setSelectedCurrency(currency);
     setSenderData((prevData) => ({
+      ...prevData,
+      senderCurrency: currency,
+    }));
+    setStoredData((prevData) => ({
       ...prevData,
       senderCurrency: currency,
     }));

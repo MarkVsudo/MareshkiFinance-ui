@@ -16,6 +16,20 @@ import {
   NumberInputStepper,
   Select,
 } from "@chakra-ui/react";
+import { atom, useAtom } from "jotai";
+
+export const receiverDataAtom = atom({
+  selectedDate: "",
+  receiverName: "",
+  receiverIBAN: "",
+  receiverBIC: "",
+  receiverBank: "",
+  description: "",
+  currency: "",
+  amount: 10.0,
+  paymentSystem: "",
+  senderName: "",
+});
 
 interface ReceiverData {
   selectedDate?: string;
@@ -40,18 +54,15 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
   setReceiverData,
 }) => {
   const [minDateTime, setMinDateTime] = useState<string>("");
+  const [storedData, setStoredData] = useAtom(receiverDataAtom);
 
   useEffect(() => {
     const now = new Date();
     const year = now.getFullYear();
-    let month = (now.getMonth() + 1).toString();
-    let day = now.getDate().toString();
-
-    if (month.length === 1) month = "0" + month;
-    if (day.length === 1) day = "0" + day;
+    let month = (now.getMonth() + 1).toString().padStart(2, "0");
+    let day = now.getDate().toString().padStart(2, "0");
 
     const minDatetimeString = `${year}-${month}-${day}`;
-    console.log("Min Datetime:", minDatetimeString);
     setMinDateTime(minDatetimeString);
   }, []);
 
@@ -60,6 +71,10 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
   ) => {
     const { name, value } = e.target;
     setReceiverData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setStoredData((prevData) => ({
       ...prevData,
       [name]: value,
     }));

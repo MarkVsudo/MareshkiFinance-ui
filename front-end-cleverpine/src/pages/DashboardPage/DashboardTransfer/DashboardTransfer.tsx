@@ -74,13 +74,22 @@ const DashboardTransfer = () => {
   };
 
   const handleFinalize = () => {
-    const transactionsData = {
+    const existingTransactions = JSON.parse(
+      localStorage.getItem("transactionsData") || "[]"
+    );
+
+    const newTransaction = {
       receiverData,
       senderData,
       timestamp: new Date().toISOString(),
     };
 
-    localStorage.setItem("transactionsData", JSON.stringify(transactionsData));
+    const updatedTransactions = [...existingTransactions, newTransaction];
+
+    localStorage.setItem(
+      "transactionsData",
+      JSON.stringify(updatedTransactions)
+    );
 
     showFinalToast(true);
   };
@@ -149,6 +158,7 @@ const DashboardTransfer = () => {
           onClick={handlePrev}
           disabled={activeStep === 0}
           mr="2"
+          display={activeStep === 0 ? "none" : ""}
         >
           Previous
         </Button>

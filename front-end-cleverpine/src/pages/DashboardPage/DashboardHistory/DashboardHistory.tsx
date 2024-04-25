@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Flex,
   Box,
@@ -22,34 +22,36 @@ interface Transaction {
   receiverName?: string;
   selectedDate?: string;
   senderName?: string;
-  balance?: number;
-  status?: string;
-  // senderAccountType?: string;
-  // senderCurrency?: string;
+  senderAccountType?: string;
+  senderCurrency?: string;
 }
 
 const DashboardHistory: React.FC = () => {
-  const transactionsData = localStorage.getItem("transactionsData");
-  const { receiverData, senderData } = transactionsData
-    ? JSON.parse(transactionsData)
-    : { receiverData: {}, senderData: {} };
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  const transactions: Transaction[] = [
-    {
-      amount: parseFloat(receiverData.amount),
-      currency: receiverData.currency,
-      description: receiverData.description,
-      paymentSystem: receiverData.paymentSystem,
-      receiverBIC: receiverData.receiverBIC,
-      receiverBank: receiverData.receiverBank,
-      receiverIBAN: receiverData.receiverIBAN,
-      receiverName: receiverData.receiverName,
-      selectedDate: receiverData.selectedDate,
-      senderName: receiverData.senderName,
-      // senderAccountType: senderData.senderAccountType,
-      // senderCurrency: senderData.senderCurrency,
-    },
-  ];
+  useEffect(() => {
+    const transactionsData = localStorage.getItem("transactionsData");
+    if (transactionsData) {
+      const parsedData = JSON.parse(transactionsData);
+      const extractedTransactions = parsedData.map((transaction: any) => ({
+        amount: parseFloat(transaction.receiverData.amount),
+        currency: transaction.receiverData.currency,
+        description: transaction.receiverData.description,
+        paymentSystem: transaction.receiverData.paymentSystem,
+        receiverBIC: transaction.receiverData.receiverBIC,
+        receiverBank: transaction.receiverData.receiverBank,
+        receiverIBAN: transaction.receiverData.receiverIBAN,
+        receiverName: transaction.receiverData.receiverName,
+        selectedDate: transaction.receiverData.selectedDate,
+        senderName: transaction.receiverData.senderName,
+        senderAccountType: transaction.senderData.senderAccountType,
+        senderCurrency: transaction.senderData.senderCurrency,
+      }));
+      setTransactions(extractedTransactions);
+    }
+  }, []);
+
+  console.log(transactions);
 
   return (
     <Flex>
@@ -69,26 +71,26 @@ const DashboardHistory: React.FC = () => {
               <Th>Receiver Name</Th>
               <Th>Date</Th>
               <Th>Sender Name</Th>
-              {/* <Th>Sender Account Type</Th>
-              <Th>Sender Currency</Th> */}
+              <Th>Sender Account Type</Th>
+              <Th>Sender Currency</Th>
             </Tr>
           </Thead>
           <Tbody>
             {transactions.map((transaction, index) => (
               <Tr key={index}>
                 <Td isNumeric>
-                  {transaction.amount && `${transaction.amount.toFixed(2)}`}
+                  {transaction.amount && transaction.amount.toFixed(2)}
                 </Td>
                 <Td>{transaction.currency}</Td>
                 <Td>{transaction.description}</Td>
                 <Td>{transaction.paymentSystem}</Td>
                 <Td>{transaction.receiverBIC}</Td>
                 <Td>{transaction.receiverIBAN}</Td>
-                <Td>{transaction.receiverBank}</Td>
-                <Td>{transaction.selectedDate}</Td>
                 <Td>{transaction.receiverName}</Td>
-                {/* <Td>{transaction.senderAccountType}</Td>
-                <Td>{transaction.senderCurrency}</Td> */}
+                <Td>{transaction.selectedDate}</Td>
+                <Td>{transaction.senderName}</Td>
+                <Td>{transaction.senderAccountType}</Td>
+                <Td>{transaction.senderCurrency}</Td>
               </Tr>
             ))}
           </Tbody>
