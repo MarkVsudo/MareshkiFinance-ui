@@ -88,7 +88,7 @@ const DashboardHistory: FC = () => {
             {transactions.map((transaction, index) => (
               <Tr key={index}>
                 <Td isNumeric>
-                  {index + 1}
+                  {index}
                 </Td>
                 <Td isNumeric>
                   {transaction.amount && transaction.amount.toFixed(2)}

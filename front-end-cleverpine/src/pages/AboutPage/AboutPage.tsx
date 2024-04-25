@@ -6,8 +6,8 @@ import cardImage from "../../assets/home-card-clouds.png";
 const AboutPage = () => {
   return (
     <Flex direction="column" gap="5rem" mt='7rem' mx='5rem' height='100%'>
-      <Flex justifyContent={'space-between'}>
-        <Flex direction="column" gap="3rem" w='50%'>
+      <Flex justifyContent={'space-between'} alignItems='center'>
+        <Flex direction="column" gap="1rem" w='50%'>
           <Text fontSize="3xl" fontWeight='700' className='about-titles'>Stop holding your money in the bank</Text>
           <Text fontSize='xl'>
             Are you tired of your money sitting idle in the bank, barely earning
@@ -22,9 +22,9 @@ const AboutPage = () => {
         </Flex>
         <Image src={bankImage} alt="Bank image about page" className="bank-image-about"/>
       </Flex>
-      <Flex justifyContent={'space-between'} minHeight='20rem'>
+      <Flex justifyContent={'space-between'} minHeight='20rem' alignItems='center'>
           <Image src={cardImage} alt="Card image about page" className="card-image-about"/>
-        <Flex direction="column" gap="3rem" w='50%'>
+        <Flex direction="column" gap="1rem" w='50%'>
           <Text fontSize="3xl" fontWeight='700' className='about-titles'>Stop holding your money in the bank</Text>
           <Text fontSize='xl' textAlign='justify' >
             At MARESHKI FINANCE, we understand the paramount importance of
