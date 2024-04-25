@@ -39,7 +39,7 @@ const HomeNavBar = () => {
             <ChakraLink as={ReactRouterLink} to="/" className="home-nav-links">
               How It Works
             </ChakraLink>
-            <ChakraLink as={ReactRouterLink} to="/" className="home-nav-links">
+            <ChakraLink as={ReactRouterLink} to="/about" className="home-nav-links">
               About
             </ChakraLink>
             <ChakraLink as={ReactRouterLink} to="/" className="home-nav-links">

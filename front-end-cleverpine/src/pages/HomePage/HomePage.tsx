@@ -4,13 +4,11 @@ import dollarImageST from "../../assets/dollar1.png";
 import dollarImageND from "../../assets/dollar2.png";
 import dollarImageRD from "../../assets/dollar3.png";
 import "../../styles/HomePage/HomePage.css";
-import HomeNavBar from "./components/HomeNavBar";
 import {Link} from 'react-router-dom';
 
 const HomePage = () => {
   return (
     <Box>
-      <HomeNavBar />
       <Flex justifyContent="space-between" w="100vw" px='5rem'>
         <Flex direction="column">
           <Text fontSize="5rem" className="main-headline">

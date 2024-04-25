@@ -19,6 +19,8 @@ import StatusMessage from "../../components/AuthPages/StatusMessage";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUsersServiceLogin } from "../../../openapi/queries";
+import Logo from "../../components/AuthPages/Logo";
+import { AuthContainer } from "../../components/AuthPages/AuthContainer";
 
 const LoginPage = () => {
   const [show, setShow] = useState(false);
@@ -52,15 +54,8 @@ const LoginPage = () => {
 
   return (
     <>
-      <Box
-        w="40rem"
-        h="100%"
-        bg="white"
-        p="3rem"
-        display="flex"
-        flexDirection="column"
-        gap="1.5rem"
-      >
+      <Logo />
+      <AuthContainer>
         <AuthTitle text="Sign in to your account to continue" />
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl mb="1.5rem" mt=".5rem">
@@ -122,7 +117,7 @@ const LoginPage = () => {
             <StatusMessage text="Incorrect email or password. Please try again." />
           )}
         </form>
-      </Box>
+      </AuthContainer>
     </>
   );
 };
