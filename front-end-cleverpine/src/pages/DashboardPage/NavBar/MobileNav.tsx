@@ -1,4 +1,17 @@
-import { Avatar, Box, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { VscSignIn } from "react-icons/vsc";
 

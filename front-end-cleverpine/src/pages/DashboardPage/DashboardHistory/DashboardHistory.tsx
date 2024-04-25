@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import {
   Flex,
   Box,
@@ -26,7 +26,7 @@ interface Transaction {
   senderCurrency?: string;
 }
 
-const DashboardHistory: React.FC = () => {
+const DashboardHistory: FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
@@ -50,8 +50,6 @@ const DashboardHistory: React.FC = () => {
       setTransactions(extractedTransactions);
     }
   }, []);
-
-  console.log(transactions);
 
   return (
     <Flex>

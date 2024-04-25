@@ -44,8 +44,6 @@ const TransferSender: FC<TransferSenderProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState<string>("");
   const [storedData, setStoredData] = useAtom(senderDataAtom);
 
-  console.log(`Atom data sender: ${[]}`);
-
   const handleAccountTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const accountType = e.target.value;
     setSelectedAccountType(accountType);
