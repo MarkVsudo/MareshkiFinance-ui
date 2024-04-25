@@ -62,13 +62,14 @@ const DashboardHistory: FC = () => {
 
   return (
     <Flex>
-      <Box w="max-content">
+      <Box >
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           Transactions history
         </Text>
         <Table variant="simple">
           <Thead>
             <Tr>
+              <Th isNumeric>№</Th>
               <Th isNumeric>Amount</Th>
               <Th>Currency</Th>
               <Th>Description</Th>
@@ -86,6 +87,9 @@ const DashboardHistory: FC = () => {
           <Tbody>
             {transactions.map((transaction, index) => (
               <Tr key={index}>
+                <Td isNumeric>
+                  {index + 1}
+                </Td>
                 <Td isNumeric>
                   {transaction.amount && transaction.amount.toFixed(2)}
                 </Td>
