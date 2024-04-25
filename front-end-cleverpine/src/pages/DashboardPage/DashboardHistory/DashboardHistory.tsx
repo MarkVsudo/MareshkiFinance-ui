@@ -9,7 +9,9 @@ import {
   Tr,
   Th,
   Td,
+  IconButton,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 interface Transaction {
   amount?: number;
@@ -51,6 +53,13 @@ const DashboardHistory: FC = () => {
     }
   }, []);
 
+  const handleDelete = (index: number) => {
+    const updatedTransactions = [...transactions];
+    updatedTransactions.splice(index, 1);
+    setTransactions(updatedTransactions);
+    localStorage.setItem("transactionsData", JSON.stringify(updatedTransactions));
+  };
+
   return (
     <Flex>
       <Box w="max-content">
@@ -71,6 +80,7 @@ const DashboardHistory: FC = () => {
               <Th>Sender Name</Th>
               <Th>Sender Account Type</Th>
               <Th>Sender Currency</Th>
+              <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -89,6 +99,14 @@ const DashboardHistory: FC = () => {
                 <Td>{transaction.senderName}</Td>
                 <Td>{transaction.senderAccountType}</Td>
                 <Td>{transaction.senderCurrency}</Td>
+                <Td>
+                  <IconButton
+                    colorScheme="red"
+                    aria-label="Delete Transaction"
+                    icon={<DeleteIcon />}
+                    onClick={() => handleDelete(index)} 
+                  />
+                </Td>
               </Tr>
             ))}
           </Tbody>
