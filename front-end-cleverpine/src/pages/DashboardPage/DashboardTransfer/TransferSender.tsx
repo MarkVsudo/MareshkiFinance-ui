@@ -7,12 +7,8 @@ import {
   useState,
 } from "react";
 import { Flex, Input, Select } from "@chakra-ui/react";
-import { atom, useAtom } from "jotai";
-
-export const senderDataAtom = atom({
-  senderAccountType: "",
-  senderCurrency: "",
-});
+import { useAtom } from "jotai";
+import {senderDataAtom} from '../../../state/senderData'
 
 interface Account {
   accountType: string;

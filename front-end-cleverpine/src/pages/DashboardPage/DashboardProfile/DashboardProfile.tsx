@@ -1,4 +1,4 @@
-import { ChangeEvent, JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useUsersServiceGetUserProfile } from "../../../../openapi/queries";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { atom, useAtom} from "jotai";
 
 interface BankAccount {
   accountType: string;
@@ -31,7 +32,10 @@ interface BankAccount {
   bankName: string;
 }
 
+const bankAccountsAtom = atom(JSON.parse(localStorage.getItem("bankAccounts") || "[]"));
 const DashboardProfile = () => {
+  const [bankAccounts, setBankAccounts] = useAtom(bankAccountsAtom);
+
   const [bankAccount, setBankAccount] = useState<BankAccount>({
     accountType: "",
     currency: "",
@@ -98,13 +102,7 @@ const DashboardProfile = () => {
       bankAccount.bicSwift &&
       bankAccount.bankName
     ) {
-      const bankAccounts = JSON.parse(
-        localStorage.getItem("bankAccounts") || "[]"
-      );
-      localStorage.setItem(
-        "bankAccounts",
-        JSON.stringify([...bankAccounts, bankAccount])
-      );
+      setBankAccounts([...bankAccounts, bankAccount]);
       setBankAccount({
         accountType: "",
         currency: "",
@@ -118,20 +116,15 @@ const DashboardProfile = () => {
     }
   };
 
+  useEffect(() => {
+    localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
+  }, [bankAccounts]);
 
-  const initialState = JSON.parse(localStorage.getItem("bankAccounts") || "[]"); 
-  
-    const [bankAccounts, setBankAccounts] = useState(initialState);
-    useEffect(() => {
-      localStorage.setItem("bankAccounts", JSON.stringify(bankAccounts));
-    }, [bankAccounts]);
-  
-    const handleDelete = (index: number) => {
-      const updatedBankAccounts = bankAccounts.slice(); 
-      updatedBankAccounts.splice(index, 1);
-      setBankAccounts(updatedBankAccounts);
-    };
-  
+  const handleDelete = (index: number) => {
+    const updatedBankAccounts = bankAccounts.slice();
+    updatedBankAccounts.splice(index, 1);
+    setBankAccounts(updatedBankAccounts);
+  };
 
   return (
     <Flex gap="1rem" flexWrap="wrap">
@@ -246,31 +239,37 @@ const DashboardProfile = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {bankAccounts.map((account: {
-                amount: ReactNode;
-                bankName: ReactNode;
-                bicSwift: ReactNode;
-                currency: ReactNode;
-                iban: ReactNode; accountType: string | number
-}, index: number) => (
-                <Tr key={index+1}>
-                  <Td isNumeric>{index+1}</Td>
-                  <Td>{account.accountType}</Td>
-                  <Td isNumeric>{account.amount}</Td>
-                  <Td>{account.bankName}</Td>
-                  <Td>{account.bicSwift}</Td>
-                  <Td>{account.currency}</Td>
-                  <Td>{account.iban}</Td>
-                  <Td>
-                  <IconButton
-                    colorScheme="red"
-                    aria-label="Delete Account"
-                    icon={<DeleteIcon />}
-                    onClick={() => handleDelete(index)} 
-                  />
-                </Td>
-                </Tr>
-              ))}
+              {bankAccounts.map(
+                (
+                  account: {
+                    amount: ReactNode;
+                    bankName: ReactNode;
+                    bicSwift: ReactNode;
+                    currency: ReactNode;
+                    iban: ReactNode;
+                    accountType: string | number;
+                  },
+                  index: number
+                ) => (
+                  <Tr key={index + 1}>
+                    <Td isNumeric>{index + 1}</Td>
+                    <Td>{account.accountType}</Td>
+                    <Td isNumeric>{account.amount}</Td>
+                    <Td>{account.bankName}</Td>
+                    <Td>{account.bicSwift}</Td>
+                    <Td>{account.currency}</Td>
+                    <Td>{account.iban}</Td>
+                    <Td>
+                      <IconButton
+                        colorScheme="red"
+                        aria-label="Delete Account"
+                        icon={<DeleteIcon />}
+                        onClick={() => handleDelete(index)}
+                      />
+                    </Td>
+                  </Tr>
+                )
+              )}
             </Tbody>
           </Table>
         </CardBody>

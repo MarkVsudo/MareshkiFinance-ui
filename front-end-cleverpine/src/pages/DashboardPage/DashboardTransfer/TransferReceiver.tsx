@@ -16,20 +16,9 @@ import {
   NumberInputStepper,
   Select,
 } from "@chakra-ui/react";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+import {receiverDataAtom} from '../../../state/receiverData'
 
-export const receiverDataAtom = atom({
-  selectedDate: "",
-  receiverName: "",
-  receiverIBAN: "",
-  receiverBIC: "",
-  receiverBank: "",
-  description: "",
-  currency: "",
-  amount: 10.0,
-  paymentSystem: "",
-  senderName: "",
-});
 
 interface ReceiverData {
   selectedDate?: string;
