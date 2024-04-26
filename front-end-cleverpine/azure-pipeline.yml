@@ -14,4 +14,4 @@ steps:
   - template: steps/docker.yaml@templates
     parameters:
       dockerRegistryServiceConnection: ACR-interns
-      dockerfilePath: $(Build.SourcesDirectory)/FrontEndCleverpine/Dockerfile
+      dockerfilePath: $(Build.SourcesDirectory)/front-end-cleverpine/Dockerfile
