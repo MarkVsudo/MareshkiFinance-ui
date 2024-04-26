@@ -1,0 +1,9 @@
+.top-navigation{
+    width: calc(100vw - 17rem);
+}
+
+.active-link{
+    background-color: #005769;
+    color: white;
+    transition: all 250ms ease-in-out;
+}

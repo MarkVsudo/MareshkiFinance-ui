@@ -1,0 +1,25 @@
+.bank-image-about {
+  object-fit: cover;
+  width: 35%;
+}
+
+.card-image-about {
+  object-fit: cover;
+  width: 35%;
+}
+
+.about-titles{
+    position: relative;
+    width: max-content;
+}
+
+.about-titles::before {
+    content: "";
+    background-color: hsla(196, 61%, 58%, 0.75);
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 100%;
+    height: 10px;
+    z-index: -1;
+  }
