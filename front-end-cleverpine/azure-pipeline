@@ -1,0 +1,17 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: DevOps/azure-pipeline-templates
+
+steps:
+  - template: steps/docker.yaml@templates
+    parameters:
+      dockerRegistryServiceConnection: ACR-interns
+      dockerfilePath: $(Build.SourcesDirectory)/FrontEndCleverpine/Dockerfile
