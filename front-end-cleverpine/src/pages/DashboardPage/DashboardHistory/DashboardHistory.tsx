@@ -86,9 +86,9 @@ const DashboardHistory: FC = () => {
           </Thead>
           <Tbody>
             {transactions.map((transaction, index) => (
-              <Tr key={index}>
+              <Tr key={index+1}>
                 <Td isNumeric>
-                  {index}
+                  {index+1}
                 </Td>
                 <Td isNumeric>
                   {transaction.amount && transaction.amount.toFixed(2)}

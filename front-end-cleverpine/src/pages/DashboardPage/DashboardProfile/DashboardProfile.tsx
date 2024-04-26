@@ -253,8 +253,8 @@ const DashboardProfile = () => {
                 currency: ReactNode;
                 iban: ReactNode; accountType: string | number
 }, index: number) => (
-                <Tr key={index}>
-                  <Td isNumeric>{index}</Td>
+                <Tr key={index+1}>
+                  <Td isNumeric>{index+1}</Td>
                   <Td>{account.accountType}</Td>
                   <Td isNumeric>{account.amount}</Td>
                   <Td>{account.bankName}</Td>
