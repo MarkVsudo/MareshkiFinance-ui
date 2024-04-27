@@ -36,33 +36,40 @@ const DashboardHistory: FC = () => {
     if (transactionsData) {
       const parsedData = JSON.parse(transactionsData);
       const extractedTransactions = parsedData.map((transaction: any) => ({
-        amount: parseFloat(transaction.receiverData.amount),
-        currency: transaction.receiverData.currency,
-        description: transaction.receiverData.description,
-        paymentSystem: transaction.receiverData.paymentSystem,
-        receiverBIC: transaction.receiverData.receiverBIC,
-        receiverBank: transaction.receiverData.receiverBank,
-        receiverIBAN: transaction.receiverData.receiverIBAN,
-        receiverName: transaction.receiverData.receiverName,
-        selectedDate: transaction.receiverData.selectedDate,
-        senderName: transaction.receiverData.senderName,
-        senderAccountType: transaction.senderData.senderAccountType,
-        senderCurrency: transaction.senderData.senderCurrency,
+        amount: transaction.receiverData?.amount,
+        currency: transaction.receiverData?.currency,
+        description: transaction.receiverData?.description,
+        paymentSystem: transaction.receiverData?.paymentSystem,
+        receiverBIC: transaction.receiverData?.receiverBIC,
+        receiverBank: transaction.receiverData?.receiverBank,
+        receiverIBAN: transaction.receiverData?.receiverIBAN,
+        receiverName: transaction.receiverData?.receiverName,
+        selectedDate: transaction.receiverData?.selectedDate,
+        senderName: transaction.receiverData?.senderName,
+        senderAccountType: transaction.senderData?.senderAccountType,
+        senderCurrency: transaction.senderData?.senderCurrency,
       }));
+
       setTransactions(extractedTransactions);
     }
   }, []);
 
   const handleDelete = (index: number) => {
-    const updatedTransactions = [...transactions];
+    const transactionsData = JSON.parse(
+      localStorage.getItem("transactionsData") || "[]"
+    );
+    const updatedTransactions = [...transactionsData];
     updatedTransactions.splice(index, 1);
     setTransactions(updatedTransactions);
-    localStorage.setItem("transactionsData", JSON.stringify(updatedTransactions));
+    localStorage.setItem(
+      "transactionsData",
+      JSON.stringify(updatedTransactions)
+    );
   };
 
   return (
     <Flex>
-      <Box >
+      <Box>
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           Transactions history
         </Text>
@@ -86,13 +93,9 @@ const DashboardHistory: FC = () => {
           </Thead>
           <Tbody>
             {transactions.map((transaction, index) => (
-              <Tr key={index+1}>
-                <Td isNumeric>
-                  {index+1}
-                </Td>
-                <Td isNumeric>
-                  {transaction.amount && transaction.amount.toFixed(2)}
-                </Td>
+              <Tr key={index}>
+                <Td isNumeric>{index}</Td>
+                <Td isNumeric>{transaction.amount}</Td>
                 <Td>{transaction.currency}</Td>
                 <Td>{transaction.description}</Td>
                 <Td>{transaction.paymentSystem}</Td>
@@ -108,7 +111,7 @@ const DashboardHistory: FC = () => {
                     colorScheme="red"
                     aria-label="Delete Transaction"
                     icon={<DeleteIcon />}
-                    onClick={() => handleDelete(index)} 
+                    onClick={() => handleDelete(index)}
                   />
                 </Td>
               </Tr>

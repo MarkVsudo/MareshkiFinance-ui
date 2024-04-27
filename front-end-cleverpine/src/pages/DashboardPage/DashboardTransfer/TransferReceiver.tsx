@@ -9,11 +9,6 @@ import {
 import {
   Flex,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Select,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
@@ -110,17 +105,13 @@ const TransferReceiver: FC<TransferReceiverProps> = ({
               />
             </Flex>
             <Flex flexDirection="column" gap="1rem" w="lg">
-              <NumberInput defaultValue={10} precision={2} min={10} step={0.2}>
-                <NumberInputField
-                  name="amount"
-                  value={receiverData.amount || "10.00"}
-                  onChange={handleChange}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>{" "}
+              <Input
+                placeholder="Amount"
+                name="amount"
+                type='number'
+                value={receiverData.amount || ''}
+                onChange={handleChange}
+              />
               <Select
                 placeholder="Currency"
                 value={receiverData.currency || ""}
